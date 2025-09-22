@@ -1,47 +1,24 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Object Image API</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-900 text-gray-100 min-h-screen">
-  <div class="max-w-3xl mx-auto p-6">
-    <a href="index.html" class="text-sm text-indigo-400 hover:underline">← Back</a>
-    <h1 class="text-2xl font-bold mt-2">Object Image API</h1>
-    <p class="text-gray-400 text-sm mb-4">Endpoint: <code>/api/objectimage?object={object_id}</code></p>
+<script>
+const BASE = "https://zorvaxo-public-apis.vercel.app";
+async function callApi() {
+  const obj = document.getElementById('object').value.trim();
+  if(!obj) return alert('Please enter Object ID');
 
-    <input id="object" class="w-full bg-gray-800 border border-gray-700 px-3 py-2 rounded" placeholder="Enter Object ID" />
-    <button onclick="callApi()" class="mt-3 px-4 py-2 bg-indigo-600 rounded">Call API</button>
+  const url = `${BASE}/api/objectimage?object=${encodeURIComponent(obj)}`;
+  const responseDiv = document.getElementById('response');
+  responseDiv.innerHTML = '<span class="text-gray-400">Loading...</span>';
 
-    <h2 class="mt-6 font-semibold">Response:</h2>
-    <div id="response" class="bg-gray-800 p-3 rounded mt-2 text-center">
-      <span class="text-gray-400 text-sm">No response yet.</span>
-    </div>
-  </div>
+  try {
+    // Fetch image as blob
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('Network response was not ok');
+    const blob = await res.blob();
 
-  <script>
-    const BASE = "https://zorvaxo-public-apis.vercel.app";
-    async function callApi(){
-      const obj = document.getElementById('object').value.trim();
-      if(!obj) return alert('Please enter Object ID');
-
-      const url = `${BASE}/api/objectimage?object=${encodeURIComponent(obj)}`;
-      const responseDiv = document.getElementById('response');
-      responseDiv.innerHTML = '<span class="text-gray-400">Loading...</span>';
-
-      try {
-        // Fetch image URL from API
-        const res = await fetch(url);
-        const data = await res.text();
-
-        // Show image
-        responseDiv.innerHTML = `<img src="${data}" alt="Object Image" class="mx-auto rounded shadow-lg max-h-96"/>`;
-      } catch(err){
-        responseDiv.innerHTML = `<span class="text-red-500">Error: ${err}</span>`;
-      }
-    }
-  </script>
-</body>
-</html>
+    // Create URL and display image
+    const imgUrl = URL.createObjectURL(blob);
+    responseDiv.innerHTML = `<img src="${imgUrl}" alt="Object Image" class="mx-auto rounded shadow-lg max-h-96"/>`;
+  } catch(err){
+    responseDiv.innerHTML = `<span class="text-red-500">Error: ${err}</span>`;
+  }
+}
+</script>
