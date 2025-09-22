@@ -1,52 +1,316 @@
-<!DOCTYPE html><html lang="en">
+Ok Suraj bhai ✅ main tujhe **7 alag-alag HTML files** bana kar de raha hoon (ek home + 6 API pages). 
+
+---
+
+### `index.html`
+```html
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Advanced Home Page</title>
-<style>
-  * { box-sizing: border-box; margin:0; padding:0; font-family: Arial, sans-serif; }
-  body { background: linear-gradient(135deg, #e0f7ff, #c0e4ff); min-height: 100vh; display: flex; flex-direction: column; }
-  header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: linear-gradient(90deg, #1E90FF, #00BFFF); box-shadow: 0 2px 5px rgba(0,0,0,0.2); color: white; font-weight: bold; font-size: 18px; }
-  header .icons { display: flex; gap: 15px; font-size: 22px; cursor: pointer; }
-  .main-content { padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; flex: 1; overflow-y: auto; }
-  .card { background: white; color: black; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; font-weight: bold; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-  .card:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
-  .bottom-nav { display: flex; justify-content: space-around; background: #fff; padding: 10px 0; box-shadow: 0 -2px 5px rgba(0,0,0,0.2); }
-  .bottom-nav button { background: #f0f0f0; border: none; border-radius: 12px; padding: 10px 15px; font-size: 20px; cursor: pointer; transition: transform 0.2s, background 0.2s; }
-  .bottom-nav button.active { background: #1E90FF; color: white; box-shadow: 0 4px 8px rgba(30,144,255,0.4); transform: scale(1.1); }
-  .main-content::-webkit-scrollbar { width: 8px; }
-  .main-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 4px; }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Zorvaxo Public APIs — Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<header>
-  <div class="user-info">
-    <span>Suraj Bhai</span>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+  <div class="max-w-3xl mx-auto p-6">
+    <h1 class="text-3xl font-bold mb-4">Zorvaxo Public APIs</h1>
+    <p class="text-gray-400 mb-6">Choose an API to test:</p>
+    <ul class="space-y-3">
+      <li><a href="checkban.html" class="text-indigo-400 hover:underline">1 — Check Ban</a></li>
+      <li><a href="ffinfo.html" class="text-indigo-400 hover:underline">2 — FF Info</a></li>
+      <li><a href="objectimage.html" class="text-indigo-400 hover:underline">3 — Object Image</a></li>
+      <li><a href="oldnick.html" class="text-indigo-400 hover:underline">4 — Old Nick</a></li>
+      <li><a href="rginfo.html" class="text-indigo-400 hover:underline">5 — Region Info</a></li>
+      <li><a href="searchnick.html" class="text-indigo-400 hover:underline">6 — Search Nick</a></li>
+    </ul>
+    <footer class="mt-8 text-xs text-gray-500">Made with ❤️ by Zorvaxo</footer>
   </div>
-  <div class="icons">
-    🔔
-    ⚙️
-  </div>
-</header>
-<div class="main-content">
-  <div class="card">📊 Stats</div>
-  <div class="card">⚡ Information</div>
-  <div class="card">💡 How To Use</div>
-</div>
-<div class="bottom-nav">
-  <button class="active">🏠</button>
-  <button>🔍</button>
-  <button>❤️</button>
-  <button>⚙️</button>
-</div>
-<script>
-  const navButtons = document.querySelectorAll('.bottom-nav button');
-  navButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      navButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-</script>
 </body>
 </html>
+```
+
+---
+
+### `checkban.html`
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Check Ban API</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+  <div class="max-w-3xl mx-auto p-6">
+    <a href="index.html" class="text-sm text-indigo-400 hover:underline">← Back</a>
+    <h1 class="text-2xl font-bold mt-2">Check Ban API</h1>
+    <p class="text-gray-400 text-sm mb-4">Endpoint: <code>/api/checkban?uid={uid}</code></p>
+
+    <input id="uid" class="w-full bg-gray-800 border border-gray-700 px-3 py-2 rounded" placeholder="Enter UID" />
+    <button onclick="callApi()" class="mt-3 px-4 py-2 bg-indigo-600 rounded">Call API</button>
+
+    <h2 class="mt-6 font-semibold">Response:</h2>
+    <pre id="response" class="bg-gray-800 p-3 rounded mt-2 text-sm overflow-auto">No response yet.</pre>
+  </div>
+
+  <script>
+    const BASE = "https://zorvaxo-public-apis.vercel.app";
+    async function callApi(){
+      const uid = document.getElementById('uid').value.trim();
+      if(!uid) return alert('Please enter UID');
+      const url = `${BASE}/api/checkban?uid=${encodeURIComponent(uid)}`;
+      document.getElementById('response').textContent = 'Loading...';
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+      } catch(err){
+        document.getElementById('response').textContent = 'Error: ' + err;
+      }
+    }
+  </script>
+</body>
+</html>
+```
+
+---
+
+### `ffinfo.html`
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FF Info API</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+  <div class="max-w-3xl mx-auto p-6">
+    <a href="index.html" class="text-sm text-indigo-400 hover:underline">← Back</a>
+    <h1 class="text-2xl font-bold mt-2">FF Info API</h1>
+    <p class="text-gray-400 text-sm mb-4">Endpoint: <code>/api/ffinfo?uid={uid}</code></p>
+
+    <input id="uid" class="w-full bg-gray-800 border border-gray-700 px-3 py-2 rounded" placeholder="Enter UID" />
+    <button onclick="callApi()" class="mt-3 px-4 py-2 bg-indigo-600 rounded">Call API</button>
+
+    <h2 class="mt-6 font-semibold">Response:</h2>
+    <pre id="response" class="bg-gray-800 p-3 rounded mt-2 text-sm overflow-auto">No response yet.</pre>
+  </div>
+
+  <script>
+    const BASE = "https://zorvaxo-public-apis.vercel.app";
+    async function callApi(){
+      const uid = document.getElementById('uid').value.trim();
+      if(!uid) return alert('Please enter UID');
+      const url = `${BASE}/api/ffinfo?uid=${encodeURIComponent(uid)}`;
+      document.getElementById('response').textContent = 'Loading...';
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+      } catch(err){
+        document.getElementById('response').textContent = 'Error: ' + err;
+      }
+    }
+  </script>
+</body>
+</html>
+```
+
+---
+
+### `objectimage.html`
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Object Image API</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+  <div class="max-w-3xl mx-auto p-6">
+    <a href="index.html" class="text-sm text-indigo-400 hover:underline">← Back</a>
+    <h1 class="text-2xl font-bold mt-2">Object Image API</h1>
+    <p class="text-gray-400 text-sm mb-4">Endpoint: <code>/api/objectimage?object={object_id}</code></p>
+
+    <input id="object" class="w-full bg-gray-800 border border-gray-700 px-3 py-2 rounded" placeholder="Enter Object ID" />
+    <button onclick="callApi()" class="mt-3 px-4 py-2 bg-indigo-600 rounded">Call API</button>
+
+    <h2 class="mt-6 font-semibold">Response:</h2>
+    <pre id="response" class="bg-gray-800 p-3 rounded mt-2 text-sm overflow-auto">No response yet.</pre>
+  </div>
+
+  <script>
+    const BASE = "https://zorvaxo-public-apis.vercel.app";
+    async function callApi(){
+      const obj = document.getElementById('object').value.trim();
+      if(!obj) return alert('Please enter Object ID');
+      const url = `${BASE}/api/objectimage?object=${encodeURIComponent(obj)}`;
+      document.getElementById('response').textContent = 'Loading...';
+      try {
+        const res = await fetch(url);
+        const data = await res.text();
+        document.getElementById('response').textContent = data;
+      } catch(err){
+        document.getElementById('response').textContent = 'Error: ' + err;
+      }
+    }
+  </script>
+</body>
+</html>
+```
+
+---
+
+### `oldnick.html`
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Old Nick API</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+  <div class="max-w-3xl mx-auto p-6">
+    <a href="index.html" class="text-sm text-indigo-400 hover:underline">← Back</a>
+    <h1 class="text-2xl font-bold mt-2">Old Nick API</h1>
+    <p class="text-gray-400 text-sm mb-4">Endpoint: <code>/api/oldnick?uid={uid}</code></p>
+
+    <input id="uid" class="w-full bg-gray-800 border border-gray-700 px-3 py-2 rounded" placeholder="Enter UID" />
+    <button onclick="callApi()" class="mt-3 px-4 py-2 bg-indigo-600 rounded">Call API</button>
+
+    <h2 class="mt-6 font-semibold">Response:</h2>
+    <pre id="response" class="bg-gray-800 p-3 rounded mt-2 text-sm overflow-auto">No response yet.</pre>
+  </div>
+
+  <script>
+    const BASE = "https://zorvaxo-public-apis.vercel.app";
+    async function callApi(){
+      const uid = document.getElementById('uid').value.trim();
+      if(!uid) return alert('Please enter UID');
+      const url = `${BASE}/api/oldnick?uid=${encodeURIComponent(uid)}`;
+      document.getElementById('response').textContent = 'Loading...';
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+      } catch(err){
+        document.getElementById('response').textContent = 'Error: ' + err;
+      }
+    }
+  </script>
+</body>
+</html>
+```
+
+---
+
+### `rginfo.html`
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Region Info API</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+  <div class="max-w-3xl mx-auto p-6">
+    <a href="index.html" class="text-sm text-indigo-400 hover:underline">← Back</a>
+    <h1 class="text-2xl font-bold mt-2">Region Info API</h1>
+    <p class="text-gray-400 text-sm mb-4">Endpoint: <code>/api/rginfo?uid={uid}</code></p>
+
+    <input id="uid" class="w-full bg-gray-800 border border-gray-700 px-3 py-2 rounded" placeholder="Enter UID" />
+    <button onclick="callApi()" class="mt-3 px-4 py-2 bg-indigo-600 rounded">Call API</button>
+
+    <h2 class="mt-6 font-semibold">Response:</h2>
+    <pre id="response" class="bg-gray-800 p-3 rounded mt-2 text-sm overflow-auto">No response yet.</pre>
+  </div>
+
+  <script>
+    const BASE = "https://zorvaxo-public-apis.vercel.app";
+    async function callApi(){
+      const uid = document.getElementById('uid').value.trim();
+      if(!uid) return alert('Please enter UID');
+      const url = `${BASE}/api/rginfo?uid=${encodeURIComponent(uid)}`;
+      document.getElementById('response').textContent = 'Loading...';
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+      } catch(err){
+        document.getElementById('response').textContent = 'Error: ' + err;
+      }
+    }
+  </script>
+</body>
+</html>
+```
+
+---
+
+### `searchnick.html`
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Search Nick API</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+  <div class="max-w-3xl mx-auto p-6">
+    <a href="index.html" class="text-sm text-indigo-400 hover:underline">← Back</a>
+    <h1 class="text-2xl font-bold mt-2">Search Nick API</h1>
+    <p class="text-gray-400 text-sm mb-4">Endpoint: <code>/api/searchnick?region={region}&nickname={nickname}</code></p>
+
+    <div class="grid grid-cols-2 gap-2 mb-3">
+      <select id="region" class="bg-gray-800 border border-gray-700 px-3 py-2 rounded">
+        <option value="ind">ind</option>
+        <option value="br">br</option>
+        <option value="pk">pk</option>
+        <option value="bd">bd</option>
+      </select>
+      <input id="nickname" class="bg-gray-800 border border-gray-700 px-3 py-2 rounded" placeholder="Nickname" />
+    </div>
+    <button onclick="callApi()" class="mt-3 px-4 py-2 bg-indigo-600 rounded">Call API</button>
+
+    <h2 class="mt-6 font-semibold">Response:</h2>
+    <pre id="response" class="bg-gray-800 p-3 rounded mt-2 text-sm overflow-auto">No response yet.</pre>
+  </div>
+
+  <script>
+    const BASE = "https://zorvaxo-public-apis.vercel.app";
+    async function callApi(){
+      const region = document.getElementById('region').value;
+      const nick = document.getElementById('nickname').value.trim();
+      if(!nick) return alert('Please enter nickname');
+      const url = `${BASE}/api/searchnick?region=${encodeURIComponent(region)}&nickname=${encodeURIComponent(nick)}`;
+      document.getElementById('response').textContent = 'Loading...';
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+      } catch(err){
+        document.getElementById('response').textContent = 'Error: ' + err;
+      }
+    }
+  </script>
+</body>
+</html>
+```
+
+---
+
+Bhai ye 7 files ko ek hi folder me save kar aur phir GitHub Pages ya Vercel pe deploy kar de → tere paas ek **multi-page API tester website** ready ho jayegi 🚀
+
+Chaahe toh main tujhe ek **zip file bana ke** ready kar deta hu jisme saare HTML honge. Chaahta hai kya?
