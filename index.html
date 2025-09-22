@@ -1,105 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Advanced Home Page</title>
 <style>
-  /* --- Global Styles --- */
   * { box-sizing: border-box; margin:0; padding:0; font-family: Arial, sans-serif; }
   body { background: linear-gradient(135deg, #e0f7ff, #c0e4ff); min-height: 100vh; display: flex; flex-direction: column; }
-
-  /* --- Top Bar / Header --- */
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 15px;
-    background: linear-gradient(90deg, #1E90FF, #00BFFF);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-  }
-  header img.avatar {
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    border: 2px solid white;
-  }
-  header .icons {
-    display: flex;
-    gap: 15px;
-    font-size: 22px;
-    cursor: pointer;
-  }
-
-  /* --- Main Content --- */
-  .main-content {
-    padding: 15px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    flex: 1;
-    overflow-y: auto;
-  }
-  .card {
-    background: white;
-    color: black;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    text-align: center;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-  }
-
-  /* --- Bottom Navigation --- */
-  .bottom-nav {
-    display: flex;
-    justify-content: space-around;
-    background: #fff;
-    padding: 10px 0;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
-  }
-  .bottom-nav button {
-    background: #f0f0f0;
-    border: none;
-    border-radius: 12px;
-    padding: 10px 15px;
-    font-size: 20px;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
-  }
-  .bottom-nav button.active {
-    background: #1E90FF;
-    color: white;
-    box-shadow: 0 4px 8px rgba(30,144,255,0.4);
-    transform: scale(1.1);
-  }
-
-  /* Scrollbar Styling */
-  .main-content::-webkit-scrollbar {
-    width: 8px;
-  }
-  .main-content::-webkit-scrollbar-thumb {
-    background: rgba(0,0,0,0.2);
-    border-radius: 4px;
-  }
-
+  header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: linear-gradient(90deg, #1E90FF, #00BFFF); box-shadow: 0 2px 5px rgba(0,0,0,0.2); color: white; font-weight: bold; font-size: 18px; }
+  header .icons { display: flex; gap: 15px; font-size: 22px; cursor: pointer; }
+  .main-content { padding: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; flex: 1; overflow-y: auto; }
+  .card { background: white; color: black; border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; font-weight: bold; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+  .card:hover { transform: scale(1.05); box-shadow: 0 6px 12px rgba(0,0,0,0.2); }
+  .bottom-nav { display: flex; justify-content: space-around; background: #fff; padding: 10px 0; box-shadow: 0 -2px 5px rgba(0,0,0,0.2); }
+  .bottom-nav button { background: #f0f0f0; border: none; border-radius: 12px; padding: 10px 15px; font-size: 20px; cursor: pointer; transition: transform 0.2s, background 0.2s; }
+  .bottom-nav button.active { background: #1E90FF; color: white; box-shadow: 0 4px 8px rgba(30,144,255,0.4); transform: scale(1.1); }
+  .main-content::-webkit-scrollbar { width: 8px; }
+  .main-content::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 4px; }
 </style>
 </head>
 <body>
-
-<!-- --- Top Bar --- -->
 <header>
   <div class="user-info">
-    <img src="https://i.pravatar.cc/40" alt="Avatar" class="avatar">
     <span>Suraj Bhai</span>
   </div>
   <div class="icons">
@@ -107,27 +28,18 @@
     ⚙️
   </div>
 </header>
-
-<!-- --- Main Content --- -->
 <div class="main-content">
   <div class="card">📊 Stats</div>
-  <div class="card">⚡ Quick Actions</div>
-  <div class="card">🌟 Featured</div>
-  <div class="card">☀️ Weather</div>
-  <div class="card">📝 Notes</div>
-  <div class="card">💡 Tips</div>
+  <div class="card">⚡ Information</div>
+  <div class="card">💡 How To Use</div>
 </div>
-
-<!-- --- Bottom Navigation --- -->
 <div class="bottom-nav">
   <button class="active">🏠</button>
   <button>🔍</button>
   <button>❤️</button>
   <button>⚙️</button>
 </div>
-
 <script>
-  // Example JS for bottom nav toggle
   const navButtons = document.querySelectorAll('.bottom-nav button');
   navButtons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -136,6 +48,5 @@
     });
   });
 </script>
-
 </body>
 </html>
