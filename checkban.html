@@ -33,8 +33,10 @@
 
       <!-- Response Box -->
       <div class="mt-8">
-        <h2 class="font-semibold text-lg mb-2">📩 Response</h2>
-        <pre id="response" class="bg-gray-900/70 p-4 rounded-xl text-sm text-gray-300 border border-gray-700 overflow-auto">No response yet.</pre>
+        <h2 class="font-semibold text-lg mb-3">📩 Result</h2>
+        <div id="response" class="bg-gray-900/70 p-4 rounded-xl text-sm text-gray-300 border border-gray-700">
+          No response yet.
+        </div>
       </div>
     </div>
   </main>
@@ -50,13 +52,30 @@
       const uid = document.getElementById('uid').value.trim();
       if(!uid) return alert('Please enter UID');
       const url = `${BASE}/api/checkban?uid=${encodeURIComponent(uid)}`;
-      document.getElementById('response').textContent = '⏳ Loading...';
+      document.getElementById('response').innerHTML = '⏳ Loading...';
       try {
         const res = await fetch(url);
         const data = await res.json();
-        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+
+        if(data.success === "true" && data.data){
+          const d = data.data;
+          document.getElementById('response').innerHTML = `
+            <div class="space-y-2">
+              <p><span class="font-semibold text-indigo-400">Nickname:</span> ${d.nickname}</p>
+              <p><span class="font-semibold text-indigo-400">ID:</span> ${d.id}</p>
+              <p><span class="font-semibold text-indigo-400">Ban Status:</span> ${d.ban_status}</p>
+              <p><span class="font-semibold text-indigo-400">Period:</span> ${d.period}</p>
+              <p><span class="font-semibold text-indigo-400">Region:</span> ${d.region}</p>
+              <p><span class="font-semibold text-indigo-400">Last Login:</span> ${d.last_login_time}</p>
+              <p class="text-gray-400 text-xs">Credits: ${data.credits}</p>
+            </div>
+          `;
+        } else {
+          document.getElementById('response').innerHTML = "❌ No data found for this UID.";
+        }
+
       } catch(err){
-        document.getElementById('response').textContent = '❌ Error: ' + err;
+        document.getElementById('response').innerHTML = '❌ Error: ' + err;
       }
     }
   </script>
