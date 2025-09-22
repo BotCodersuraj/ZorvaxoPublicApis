@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,23 +15,61 @@
     <input id="uid" class="w-full bg-gray-800 border border-gray-700 px-3 py-2 rounded" placeholder="Enter UID" />
     <button onclick="callApi()" class="mt-3 px-4 py-2 bg-indigo-600 rounded">Call API</button>
 
-    <h2 class="mt-6 font-semibold">Response:</h2>
-    <pre id="response" class="bg-gray-800 p-3 rounded mt-2 text-sm overflow-auto">No response yet.</pre>
+    <!-- Response Container -->
+    <div id="response" class="mt-6 hidden">
+      <h2 class="font-semibold text-lg mb-2">Player Info:</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-gray-800 p-4 rounded shadow">
+          <p><span class="font-semibold">Nickname:</span> <span id="nickname"></span></p>
+          <p><span class="font-semibold">UID:</span> <span id="accountId"></span></p>
+          <p><span class="font-semibold">Level:</span> <span id="level"></span></p>
+          <p><span class="font-semibold">Region:</span> <span id="region"></span></p>
+        </div>
+        <div class="bg-gray-800 p-4 rounded shadow">
+          <p><span class="font-semibold">Rank:</span> <span id="rank"></span></p>
+          <p><span class="font-semibold">Max Rank:</span> <span id="maxRank"></span></p>
+          <p><span class="font-semibold">CS Rank:</span> <span id="csRank"></span></p>
+          <p><span class="font-semibold">Likes:</span> <span id="liked"></span></p>
+        </div>
+      </div>
+      <div class="bg-gray-800 p-4 rounded shadow mt-4">
+        <p><span class="font-semibold">Social Info:</span></p>
+        <p id="socialHighlight" class="text-gray-300 text-sm mt-1 whitespace-pre-line"></p>
+      </div>
+    </div>
   </div>
 
   <script>
     const BASE = "https://zorvaxo-public-apis.vercel.app";
+
     async function callApi(){
       const uid = document.getElementById('uid').value.trim();
       if(!uid) return alert('Please enter UID');
       const url = `${BASE}/api/ffinfo?uid=${encodeURIComponent(uid)}`;
-      document.getElementById('response').textContent = 'Loading...';
+
+      document.getElementById('response').classList.add('hidden');
+
       try {
         const res = await fetch(url);
         const data = await res.json();
-        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+
+        // Fill data
+        document.getElementById('nickname').textContent = data.basicInfo.nickname || "N/A";
+        document.getElementById('accountId').textContent = data.basicInfo.accountId || "N/A";
+        document.getElementById('level').textContent = data.basicInfo.level || "N/A";
+        document.getElementById('region').textContent = data.basicInfo.region || "N/A";
+
+        document.getElementById('rank').textContent = data.basicInfo.rank || "N/A";
+        document.getElementById('maxRank').textContent = data.basicInfo.maxRank || "N/A";
+        document.getElementById('csRank').textContent = data.basicInfo.csRank || "N/A";
+        document.getElementById('liked').textContent = data.basicInfo.liked || "N/A";
+
+        document.getElementById('socialHighlight').textContent = data.socialInfo?.socialHighlight || "N/A";
+
+        document.getElementById('response').classList.remove('hidden');
+
       } catch(err){
-        document.getElementById('response').textContent = 'Error: ' + err;
+        alert("Error: " + err);
       }
     }
   </script>
