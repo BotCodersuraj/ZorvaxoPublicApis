@@ -6,72 +6,127 @@
   <title>FF Info API</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen">
-  <div class="max-w-3xl mx-auto p-6">
-    <a href="index.html" class="text-sm text-indigo-400 hover:underline">← Back</a>
-    <h1 class="text-2xl font-bold mt-2">FF Info API</h1>
-    <p class="text-gray-400 text-sm mb-4">Endpoint: <code>/api/ffinfo?uid={uid}</code></p>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100 min-h-screen flex flex-col">
 
-    <input id="uid" class="w-full bg-gray-800 border border-gray-700 px-3 py-2 rounded" placeholder="Enter UID" />
-    <button onclick="callApi()" class="mt-3 px-4 py-2 bg-indigo-600 rounded">Call API</button>
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg py-5 px-6 flex justify-between items-center text-white font-bold text-lg">
+    <a href="index.html" class="hover:underline">⬅ Back</a>
+    <div>⚡ FF Info API</div>
+    <div></div>
+  </header>
 
-    <!-- Response Container -->
-    <div id="response" class="mt-6 hidden">
-      <h2 class="font-semibold text-lg mb-2">Player Info:</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="bg-gray-800 p-4 rounded shadow">
-          <p><span class="font-semibold">Nickname:</span> <span id="nickname"></span></p>
-          <p><span class="font-semibold">UID:</span> <span id="accountId"></span></p>
-          <p><span class="font-semibold">Level:</span> <span id="level"></span></p>
-          <p><span class="font-semibold">Region:</span> <span id="region"></span></p>
-        </div>
-        <div class="bg-gray-800 p-4 rounded shadow">
-          <p><span class="font-semibold">Rank:</span> <span id="rank"></span></p>
-          <p><span class="font-semibold">Max Rank:</span> <span id="maxRank"></span></p>
-          <p><span class="font-semibold">CS Rank:</span> <span id="csRank"></span></p>
-          <p><span class="font-semibold">Likes:</span> <span id="liked"></span></p>
-        </div>
+  <!-- Main Content -->
+  <main class="flex-1 flex items-start justify-center px-6 py-8">
+    <div class="w-full max-w-3xl space-y-6">
+
+      <!-- Input -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input id="uid" class="flex-1 bg-gray-900/70 border border-gray-700 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter UID..." />
+        <button onclick="callApi()" class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl font-semibold shadow-md hover:scale-105 transition-transform duration-300">
+          Call API 🚀
+        </button>
       </div>
-      <div class="bg-gray-800 p-4 rounded shadow mt-4">
-        <p><span class="font-semibold">Social Info:</span></p>
-        <p id="socialHighlight" class="text-gray-300 text-sm mt-1 whitespace-pre-line"></p>
-      </div>
+
+      <!-- Response -->
+      <div id="response" class="hidden space-y-4"></div>
+
     </div>
-  </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-4 text-center text-gray-400 text-sm border-t border-gray-700">
+    Made with ❤️ by Zorvaxo
+  </footer>
 
   <script>
     const BASE = "https://zorvaxo-public-apis.vercel.app";
 
-    async function callApi(){
+    async function callApi() {
       const uid = document.getElementById('uid').value.trim();
       if(!uid) return alert('Please enter UID');
       const url = `${BASE}/api/ffinfo?uid=${encodeURIComponent(uid)}`;
-
-      document.getElementById('response').classList.add('hidden');
+      
+      const responseDiv = document.getElementById('response');
+      responseDiv.innerHTML = '<p class="text-center text-gray-400">⏳ Loading...</p>';
+      responseDiv.classList.remove('hidden');
 
       try {
         const res = await fetch(url);
         const data = await res.json();
 
-        // Fill data
-        document.getElementById('nickname').textContent = data.basicInfo.nickname || "N/A";
-        document.getElementById('accountId').textContent = data.basicInfo.accountId || "N/A";
-        document.getElementById('level').textContent = data.basicInfo.level || "N/A";
-        document.getElementById('region').textContent = data.basicInfo.region || "N/A";
+        if(!data.basicInfo) {
+          responseDiv.innerHTML = '<p class="text-red-500 text-center">❌ No data found for this UID.</p>';
+          return;
+        }
 
-        document.getElementById('rank').textContent = data.basicInfo.rank || "N/A";
-        document.getElementById('maxRank').textContent = data.basicInfo.maxRank || "N/A";
-        document.getElementById('csRank').textContent = data.basicInfo.csRank || "N/A";
-        document.getElementById('liked').textContent = data.basicInfo.liked || "N/A";
+        const b = data.basicInfo;
+        const p = data.petInfo;
+        const d = data.diamondCostRes;
+        const c = data.creditScoreInfo;
+        const s = data.socialInfo;
 
-        document.getElementById('socialHighlight').textContent = data.socialInfo?.socialHighlight || "N/A";
+        responseDiv.innerHTML = `
+          <!-- Basic Info -->
+          <div class="bg-gray-800/70 p-5 rounded-2xl shadow-lg border border-gray-700 space-y-2">
+            <h2 class="text-xl font-bold text-indigo-400">👤 Basic Info</h2>
+            <p><span class="font-semibold">Nickname:</span> ${b.nickname}</p>
+            <p><span class="font-semibold">Account ID:</span> ${b.accountId}</p>
+            <p><span class="font-semibold">Level:</span> ${b.level}</p>
+            <p><span class="font-semibold">Region:</span> ${b.region}</p>
+            <p><span class="font-semibold">Rank:</span> ${b.rank}</p>
+            <p><span class="font-semibold">Max Rank:</span> ${b.maxRank}</p>
+            <p><span class="font-semibold">CS Rank:</span> ${b.csRank}</p>
+            <p><span class="font-semibold">Likes:</span> ${b.liked}</p>
+            <p><span class="font-semibold">Season:</span> ${b.seasonId}</p>
+            <p><span class="font-semibold">Title:</span> ${b.title}</p>
+          </div>
 
-        document.getElementById('response').classList.remove('hidden');
+          <!-- Pet Info -->
+          ${p ? `
+          <div class="bg-gray-800/70 p-5 rounded-2xl shadow-lg border border-gray-700 space-y-2">
+            <h2 class="text-xl font-bold text-purple-400">🐾 Pet Info</h2>
+            <p><span class="font-semibold">Pet ID:</span> ${p.petId}</p>
+            <p><span class="font-semibold">Level:</span> ${p.level}</p>
+            <p><span class="font-semibold">Selected:</span> ${p.isSelected ? '✅ Yes' : '❌ No'}</p>
+            <p><span class="font-semibold">Selected Skill ID:</span> ${p.selectedSkillId}</p>
+            <p><span class="font-semibold">Skin ID:</span> ${p.skinId}</p>
+          </div>` : ''}
 
+          <!-- Diamond Info -->
+          ${d ? `
+          <div class="bg-gray-800/70 p-5 rounded-2xl shadow-lg border border-gray-700 space-y-2">
+            <h2 class="text-xl font-bold text-yellow-400">💎 Diamond Cost</h2>
+            <p><span class="font-semibold">Diamond Cost:</span> ${d.diamondCost}</p>
+          </div>` : ''}
+
+          <!-- Credit Score -->
+          ${c ? `
+          <div class="bg-gray-800/70 p-5 rounded-2xl shadow-lg border border-gray-700 space-y-2">
+            <h2 class="text-xl font-bold text-green-400">📊 Credit Score</h2>
+            <p><span class="font-semibold">Score:</span> ${c.score}</p>
+            <p><span class="font-semibold">Reason:</span> ${c.reason}</p>
+            <p><span class="font-semibold">Start:</span> ${c.start}</p>
+            <p><span class="font-semibold">End:</span> ${c.end}</p>
+          </div>` : ''}
+
+          <!-- Social Info -->
+          ${s ? `
+          <div class="bg-gray-800/70 p-5 rounded-2xl shadow-lg border border-gray-700 space-y-2">
+            <h2 class="text-xl font-bold text-cyan-400">🌐 Social Info</h2>
+            <p><span class="font-semibold">Account ID:</span> ${s.accountId}</p>
+            <p><span class="font-semibold">Gender:</span> ${s.gender}</p>
+            <p><span class="font-semibold">Language:</span> ${s.language}</p>
+            <p><span class="font-semibold">Privacy:</span> ${s.privacy}</p>
+            <p><span class="font-semibold">Social Highlight:</span> <br><span class="text-gray-300 whitespace-pre-line">${s.socialHighlight || 'N/A'}</span></p>
+          </div>` : ''}
+
+          <p class="text-gray-400 text-sm text-center mt-2">Credits: ${data.credits}</p>
+        `;
       } catch(err){
-        alert("Error: " + err);
+        responseDiv.innerHTML = '<p class="text-red-500 text-center">❌ Error: '+err+'</p>';
       }
     }
   </script>
+
 </body>
 </html>
