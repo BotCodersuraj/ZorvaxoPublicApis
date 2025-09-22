@@ -1,0 +1,268 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Zorvaxo Public APIs — Single Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    pre { white-space: pre-wrap; word-break: break-word; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Helvetica Neue", monospace; }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 min-h-screen">
+  <div class="max-w-5xl mx-auto p-6">
+    <header class="mb-6">
+      <h1 class="text-3xl font-bold">Zorvaxo Public APIs — Single Page</h1>
+      <p class="mt-1 text-sm text-gray-400">All endpoints in one page. Enter params, call API and view JSON response.</p>
+    </header><section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <!-- Base URL card -->
+  <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+    <label class="text-sm text-gray-300">Base URL</label>
+    <div class="mt-2 flex gap-2">
+      <input id="baseUrl" class="w-full bg-gray-900 px-3 py-2 rounded border border-gray-700" value="https://zorvaxo-public-apis.vercel.app" />
+      <button id="resetBase" class="px-3 py-2 bg-indigo-600 rounded">Reset</button>
+    </div>
+    <p class="mt-2 text-xs text-gray-500">Change this if you host the API somewhere else.</p>
+  </div>
+
+  <!-- Quick helpers -->
+  <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+    <p class="text-sm text-gray-300">Quick helper</p>
+    <div class="mt-3 grid grid-cols-2 gap-2">
+      <button data-sample="checkban" class="api-sample px-3 py-2 bg-green-600 rounded">Sample checkban</button>
+      <button data-sample="ffinfo" class="api-sample px-3 py-2 bg-green-600 rounded">Sample ffinfo</button>
+    </div>
+    <p class="mt-2 text-xs text-gray-500">Samples fill inputs so you can test quickly.</p>
+  </div>
+
+  <!-- API cards start -->
+  <div class="col-span-1 md:col-span-2 grid grid-cols-1 lg:grid-cols-3 gap-4">
+
+    <!-- 1. checkban -->
+    <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+      <h3 class="font-semibold">1 — api/checkban</h3>
+      <p class="text-xs text-gray-400">GET api/checkban?uid={uid}</p>
+      <label class="mt-3 text-xs text-gray-300">UID</label>
+      <input id="uid_checkban" class="w-full bg-gray-900 px-3 py-2 rounded border border-gray-700" placeholder="e.g. 1234567890" />
+      <div class="mt-3 flex gap-2">
+        <button class="call-btn px-3 py-2 bg-indigo-600 rounded" data-endpoint="/api/checkban?uid=">Call</button>
+        <button class="copy-url px-3 py-2 bg-gray-700 rounded" data-endpoint="/api/checkban?uid=">Copy URL</button>
+      </div>
+    </div>
+
+    <!-- 2. ffinfo -->
+    <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+      <h3 class="font-semibold">2 — api/ffinfo</h3>
+      <p class="text-xs text-gray-400">GET api/ffinfo?uid={uid}</p>
+      <label class="mt-3 text-xs text-gray-300">UID</label>
+      <input id="uid_ffinfo" class="w-full bg-gray-900 px-3 py-2 rounded border border-gray-700" placeholder="e.g. 8080519000" />
+      <div class="mt-3 flex gap-2">
+        <button class="call-btn px-3 py-2 bg-indigo-600 rounded" data-endpoint="/api/ffinfo?uid=">Call</button>
+        <button class="copy-url px-3 py-2 bg-gray-700 rounded" data-endpoint="/api/ffinfo?uid=">Copy URL</button>
+      </div>
+    </div>
+
+    <!-- 3. objectimage -->
+    <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+      <h3 class="font-semibold">3 — api/objectimage</h3>
+      <p class="text-xs text-gray-400">GET api/objectimage?object={object_id}</p>
+      <label class="mt-3 text-xs text-gray-300">Object ID</label>
+      <input id="object_image" class="w-full bg-gray-900 px-3 py-2 rounded border border-gray-700" placeholder="e.g. avatar123" />
+      <div class="mt-3 flex gap-2">
+        <button class="call-btn px-3 py-2 bg-indigo-600 rounded" data-endpoint="/api/objectimage?object=">Call</button>
+        <button class="copy-url px-3 py-2 bg-gray-700 rounded" data-endpoint="/api/objectimage?object=">Copy URL</button>
+      </div>
+    </div>
+
+    <!-- 4. oldnick -->
+    <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+      <h3 class="font-semibold">4 — api/oldnick</h3>
+      <p class="text-xs text-gray-400">GET api/oldnick?uid={uid}</p>
+      <label class="mt-3 text-xs text-gray-300">UID</label>
+      <input id="uid_oldnick" class="w-full bg-gray-900 px-3 py-2 rounded border border-gray-700" placeholder="e.g. 1234567890" />
+      <div class="mt-3 flex gap-2">
+        <button class="call-btn px-3 py-2 bg-indigo-600 rounded" data-endpoint="/api/oldnick?uid=">Call</button>
+        <button class="copy-url px-3 py-2 bg-gray-700 rounded" data-endpoint="/api/oldnick?uid=">Copy URL</button>
+      </div>
+    </div>
+
+    <!-- 5. rginfo -->
+    <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+      <h3 class="font-semibold">5 — api/rginfo</h3>
+      <p class="text-xs text-gray-400">GET api/rginfo?uid={uid}</p>
+      <label class="mt-3 text-xs text-gray-300">UID</label>
+      <input id="uid_rginfo" class="w-full bg-gray-900 px-3 py-2 rounded border border-gray-700" placeholder="e.g. 8080519000" />
+      <div class="mt-3 flex gap-2">
+        <button class="call-btn px-3 py-2 bg-indigo-600 rounded" data-endpoint="/api/rginfo?uid=">Call</button>
+        <button class="copy-url px-3 py-2 bg-gray-700 rounded" data-endpoint="/api/rginfo?uid=">Copy URL</button>
+      </div>
+    </div>
+
+    <!-- 6. searchnick -->
+    <div class="bg-gray-800 p-4 rounded-lg shadow-md lg:col-span-2">
+      <h3 class="font-semibold">6 — api/searchnick</h3>
+      <p class="text-xs text-gray-400">GET api/searchnick?region={region}&amp;nickname={nickname}</p>
+      <div class="mt-3 grid grid-cols-2 gap-2">
+        <select id="region" class="bg-gray-900 px-3 py-2 rounded border border-gray-700">
+          <option value="ind">ind</option>
+          <option value="br">br</option>
+          <option value="pk">pk</option>
+          <option value="bd">bd</option>
+        </select>
+        <input id="nickname" class="bg-gray-900 px-3 py-2 rounded border border-gray-700" placeholder="nickname" />
+      </div>
+      <div class="mt-3 flex gap-2">
+        <button class="call-btn px-3 py-2 bg-indigo-600 rounded" data-endpoint="/api/searchnick?region=">Call</button>
+        <button class="copy-url px-3 py-2 bg-gray-700 rounded" data-endpoint="/api/searchnick?region=">Copy URL</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Response viewer -->
+  <div class="col-span-1 md:col-span-2 bg-gray-800 p-4 rounded-lg shadow-md mt-2">
+    <div class="flex items-start justify-between">
+      <h3 class="font-semibold">Response</h3>
+      <div class="flex gap-2">
+        <button id="downloadJson" class="px-3 py-1 bg-green-600 rounded text-sm">Download JSON</button>
+        <button id="clearRes" class="px-3 py-1 bg-gray-700 rounded text-sm">Clear</button>
+      </div>
+    </div>
+    <p id="calledUrl" class="text-xs text-gray-400 mt-1 mono"></p>
+    <pre id="responseArea" class="mt-3 bg-gray-900 p-3 rounded mono text-sm" style="max-height:420px; overflow:auto">No response yet.</pre>
+  </div>
+
+</section>
+
+<footer class="mt-6 text-xs text-gray-500">Made with ❤️ — Paste this file and deploy to Vercel / Netlify / GitHub Pages.</footer>
+
+  </div>  <script>
+    const baseInput = document.getElementById('baseUrl');
+    document.getElementById('resetBase').addEventListener('click', () => baseInput.value = 'https://zorvaxo-public-apis.vercel.app');
+
+    // sample fill
+    document.querySelectorAll('.api-sample').forEach(b => b.addEventListener('click', e => {
+      const t = e.currentTarget.dataset.sample;
+      if(t === 'checkban') { document.getElementById('uid_checkban').value = '8080519000'; }
+      if(t === 'ffinfo')  { document.getElementById('uid_ffinfo').value = '8080519000'; }
+    }));
+
+    // Build URL helpers
+    function buildUrl(endpoint) {
+      const b = baseInput.value.replace(/\/+$/,'');
+      return b + endpoint;
+    }
+
+    function showResponse(url, data, raw=false) {
+      document.getElementById('calledUrl').textContent = url;
+      const area = document.getElementById('responseArea');
+      if(raw) area.textContent = data;
+      else area.textContent = JSON.stringify(data, null, 2);
+      window.latestJson = (raw ? null : data) || null;
+      window.latestRaw = raw ? data : null;
+    }
+
+    function showError(url, err) {
+      document.getElementById('calledUrl').textContent = url;
+      document.getElementById('responseArea').textContent = 'Error: ' + err;
+      window.latestJson = null; window.latestRaw = null;
+    }
+
+    // Attach call buttons
+    document.querySelectorAll('.call-btn').forEach(btn => btn.addEventListener('click', async (ev) => {
+      const ep = ev.currentTarget.dataset.endpoint;
+      let url = '';
+      try {
+        if(ep.startsWith('/api/checkban')) {
+          const uid = document.getElementById('uid_checkban').value.trim();
+          if(!uid) return alert('Enter UID for checkban');
+          url = buildUrl(`/api/checkban?uid=${encodeURIComponent(uid)}`);
+        } else if(ep.startsWith('/api/ffinfo')) {
+          const uid = document.getElementById('uid_ffinfo').value.trim();
+          if(!uid) return alert('Enter UID for ffinfo');
+          url = buildUrl(`/api/ffinfo?uid=${encodeURIComponent(uid)}`);
+        } else if(ep.startsWith('/api/objectimage')) {
+          const obj = document.getElementById('object_image').value.trim();
+          if(!obj) return alert('Enter object id');
+          url = buildUrl(`/api/objectimage?object=${encodeURIComponent(obj)}`);
+        } else if(ep.startsWith('/api/oldnick')) {
+          const uid = document.getElementById('uid_oldnick').value.trim();
+          if(!uid) return alert('Enter UID for oldnick');
+          url = buildUrl(`/api/oldnick?uid=${encodeURIComponent(uid)}`);
+        } else if(ep.startsWith('/api/rginfo')) {
+          const uid = document.getElementById('uid_rginfo').value.trim();
+          if(!uid) return alert('Enter UID for rginfo');
+          url = buildUrl(`/api/rginfo?uid=${encodeURIComponent(uid)}`);
+        } else if(ep.startsWith('/api/searchnick')) {
+          const region = document.getElementById('region').value;
+          const nick = document.getElementById('nickname').value.trim();
+          if(!nick) return alert('Enter nickname for searchnick');
+          url = buildUrl(`/api/searchnick?region=${encodeURIComponent(region)}&nickname=${encodeURIComponent(nick)}`);
+        } else {
+          url = buildUrl(ep);
+        }
+
+        showResponse(url, {status: 'loading...'}, true);
+        const res = await fetch(url, { method: 'GET' });
+        const contentType = res.headers.get('content-type') || '';
+        if(contentType.includes('application/json')) {
+          const json = await res.json();
+          showResponse(url, json);
+        } else {
+          const text = await res.text();
+          showResponse(url, text, true);
+        }
+      } catch (err) {
+        showError(url, err.message || err);
+      }
+    }));
+
+    // Copy URL buttons
+    document.querySelectorAll('.copy-url').forEach(btn => btn.addEventListener('click', (ev) => {
+      const ep = ev.currentTarget.dataset.endpoint;
+      let url = '';
+      if(ep.includes('searchnick')) {
+        const region = document.getElementById('region').value;
+        const nick = document.getElementById('nickname').value.trim() || '<nickname>';
+        url = buildUrl(`/api/searchnick?region=${encodeURIComponent(region)}&nickname=${encodeURIComponent(nick)}`);
+      } else if(ep.includes('objectimage')) {
+        const obj = document.getElementById('object_image').value.trim() || '<object_id>';
+        url = buildUrl(`/api/objectimage?object=${encodeURIComponent(obj)}`);
+      } else {
+        const key = ep.split('?')[0].split('/').pop();
+        const val = document.querySelector(`#uid_${key}`)?.value || '<uid>';
+        url = buildUrl(ep + encodeURIComponent(val));
+      }
+      navigator.clipboard && navigator.clipboard.writeText(url).then(() => alert('URL copied to clipboard'));
+    }));
+
+    // Download JSON
+    document.getElementById('downloadJson').addEventListener('click', () => {
+      const data = window.latestJson || window.latestRaw;
+      if(!data) return alert('No JSON to download. Call an API first.');
+      const blob = new Blob([typeof data === 'string' ? data : JSON.stringify(data, null, 2)], {type: 'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'response.json'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    // Clear
+    document.getElementById('clearRes').addEventListener('click', () => {
+      document.getElementById('responseArea').textContent = 'No response yet.';
+      document.getElementById('calledUrl').textContent = '';
+      window.latestJson = null; window.latestRaw = null;
+    });
+
+    // Small UX: press Enter to call appropriate endpoints in a sensible way
+    document.querySelectorAll('input').forEach(input => input.addEventListener('keydown', (e) => {
+      if(e.key === 'Enter') {
+        // find nearest call-btn in the same card
+        const card = e.target.closest('div');
+        const btn = card?.querySelector('.call-btn');
+        if(btn) btn.click();
+      }
+    }));
+  </script></body>
+</html>
