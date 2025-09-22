@@ -6,34 +6,81 @@
   <title>Old Nick API</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen">
-  <div class="max-w-3xl mx-auto p-6">
-    <a href="index.html" class="text-sm text-indigo-400 hover:underline">← Back</a>
-    <h1 class="text-2xl font-bold mt-2">Old Nick API</h1>
-    <p class="text-gray-400 text-sm mb-4">Endpoint: <code>/api/oldnick?uid={uid}</code></p>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100 min-h-screen flex flex-col">
 
-    <input id="uid" class="w-full bg-gray-800 border border-gray-700 px-3 py-2 rounded" placeholder="Enter UID" />
-    <button onclick="callApi()" class="mt-3 px-4 py-2 bg-indigo-600 rounded">Call API</button>
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg py-5 px-6 flex justify-between items-center text-white font-bold text-lg">
+    <a href="index.html" class="hover:underline">⬅ Back</a>
+    <div>🔍 Old Nick API</div>
+    <div></div>
+  </header>
 
-    <h2 class="mt-6 font-semibold">Response:</h2>
-    <pre id="response" class="bg-gray-800 p-3 rounded mt-2 text-sm overflow-auto">No response yet.</pre>
-  </div>
+  <!-- Main Content -->
+  <main class="flex-1 flex items-center justify-center px-6 py-8">
+    <div class="w-full max-w-2xl bg-gray-800/70 p-8 rounded-2xl shadow-xl border border-gray-700 backdrop-blur-sm space-y-6">
+
+      <h1 class="text-3xl font-bold text-indigo-400 text-center mb-2">Old Nick Checker</h1>
+      <p class="text-gray-400 text-center">Get the current nickname for a UID in your region.</p>
+
+      <!-- Inputs -->
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input id="uid" class="flex-1 bg-gray-900/70 border border-gray-700 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter UID..." />
+        <select id="region" class="bg-gray-900/70 border border-gray-700 px-4 py-3 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="ind">IND</option>
+          <option value="br">BR</option>
+          <option value="pk">PK</option>
+          <option value="bd">BD</option>
+        </select>
+        <button onclick="callApi()" class="px-6 py-3 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-xl font-semibold shadow-md hover:scale-105 transition-transform duration-300">
+          Call API 🚀
+        </button>
+      </div>
+
+      <!-- Response -->
+      <div id="response" class="bg-gray-900/70 p-6 rounded-2xl text-center text-gray-300 border border-gray-700 hidden space-y-2">
+        No response yet.
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-4 text-center text-gray-400 text-sm border-t border-gray-700">
+    Made with ❤️ by Zorvaxo
+  </footer>
 
   <script>
     const BASE = "https://zorvaxo-public-apis.vercel.app";
-    async function callApi(){
+
+    async function callApi() {
       const uid = document.getElementById('uid').value.trim();
+      const region = document.getElementById('region').value;
       if(!uid) return alert('Please enter UID');
-      const url = `${BASE}/api/oldnick?uid=${encodeURIComponent(uid)}`;
-      document.getElementById('response').textContent = 'Loading...';
+
+      const url = `${BASE}/api/oldnick?account_id=${encodeURIComponent(uid)}&region=${region}`;
+      const responseDiv = document.getElementById('response');
+      responseDiv.innerHTML = '⏳ Loading...';
+      responseDiv.classList.remove('hidden');
+
       try {
         const res = await fetch(url);
         const data = await res.json();
-        document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+
+        if(data.Current_Nickname){
+          responseDiv.innerHTML = `
+            <p class="text-xl font-bold text-indigo-400">Current Nickname:</p>
+            <p class="text-2xl font-extrabold text-white mt-2">${data.Current_Nickname}</p>
+            <p class="text-gray-400 text-sm mt-2">Credits: ${data.credit}</p>
+          `;
+        } else {
+          responseDiv.innerHTML = '<p class="text-red-500 font-semibold">❌ No data found for this UID/Region.</p>';
+        }
+
       } catch(err){
-        document.getElementById('response').textContent = 'Error: ' + err;
+        responseDiv.innerHTML = '<p class="text-red-500 font-semibold">❌ Error: '+err+'</p>';
       }
     }
   </script>
+
 </body>
 </html>
