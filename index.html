@@ -6,33 +6,69 @@
   <title>Zorvaxo Public APIs — Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-900 text-gray-100 min-h-screen flex items-center justify-center">
-  <div class="max-w-4xl mx-auto p-6 text-center">
-    <h1 class="text-4xl font-bold mb-2">🚀 Zorvaxo Public APIs</h1>
-    <p class="text-gray-400 mb-10">Select an API below to test</p>
+<body class="bg-gray-100 text-gray-900">
+  <!-- Header -->
+  <header class="bg-white shadow-md p-4 flex items-center justify-between">
+    <h1 class="text-xl font-bold text-indigo-600">🔥 ZORVAXO APIs</h1>
+    <div class="flex items-center space-x-3">
+      <span class="text-sm">👋 Welcome, Guest</span>
+      <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
+        Balance: ₹100
+      </span>
+    </div>
+  </header>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <a href="checkban.html" class="bg-indigo-600 hover:bg-indigo-700 p-6 rounded-2xl shadow-lg transition transform hover:scale-105">
-        <span class="text-xl font-semibold">Check Ban</span>
-      </a>
-      <a href="ffinfo.html" class="bg-green-600 hover:bg-green-700 p-6 rounded-2xl shadow-lg transition transform hover:scale-105">
-        <span class="text-xl font-semibold">FF Info</span>
-      </a>
-      <a href="objectimage.html" class="bg-pink-600 hover:bg-pink-700 p-6 rounded-2xl shadow-lg transition transform hover:scale-105">
-        <span class="text-xl font-semibold">Object Image</span>
-      </a>
-      <a href="oldnick.html" class="bg-yellow-600 hover:bg-yellow-700 p-6 rounded-2xl shadow-lg transition transform hover:scale-105">
-        <span class="text-xl font-semibold">Old Nick</span>
-      </a>
-      <a href="rginfo.html" class="bg-red-600 hover:bg-red-700 p-6 rounded-2xl shadow-lg transition transform hover:scale-105">
-        <span class="text-xl font-semibold">Region Info</span>
-      </a>
-      <a href="searchnick.html" class="bg-blue-600 hover:bg-blue-700 p-6 rounded-2xl shadow-lg transition transform hover:scale-105">
-        <span class="text-xl font-semibold">Search Nick</span>
-      </a>
+  <!-- Notice -->
+  <div class="bg-blue-600 text-white text-center py-2 text-sm font-medium">
+    📢 New: Contact us on Telegram @Zorvaxo for support & updates
+  </div>
+
+  <!-- Main Content -->
+  <main class="max-w-3xl mx-auto p-6">
+    <!-- Quick Info Cards -->
+    <div class="grid grid-cols-2 gap-4 mb-6">
+      <div class="bg-white shadow rounded-lg p-4 text-center">
+        <p class="text-2xl">😎</p>
+        <p class="font-semibold">Free APIs</p>
+        <p class="text-gray-500 text-sm">6 available</p>
+      </div>
+      <div class="bg-white shadow rounded-lg p-4 text-center">
+        <p class="text-2xl">💎</p>
+        <p class="font-semibold">Premium</p>
+        <p class="text-gray-500 text-sm">Coming soon</p>
+      </div>
     </div>
 
-    <footer class="mt-12 text-xs text-gray-500">Made with ❤️ by Zorvaxo</footer>
-  </div>
+    <!-- API Selector -->
+    <h2 class="text-lg font-bold text-gray-700 mb-3">Choose API</h2>
+    <form class="bg-white shadow rounded-lg p-5 space-y-4">
+      <label class="block text-sm font-medium">Select API</label>
+      <select class="w-full border rounded px-3 py-2">
+        <option value="checkban.html">Check Ban</option>
+        <option value="ffinfo.html">FF Info</option>
+        <option value="objectimage.html">Object Image</option>
+        <option value="oldnick.html">Old Nick</option>
+        <option value="rginfo.html">Region Info</option>
+        <option value="searchnick.html">Search Nick</option>
+      </select>
+
+      <button type="button" onclick="goApi()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-semibold transition">
+        🚀 Go to API
+      </button>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <footer class="text-center py-4 text-gray-500 text-sm">
+    Made with ❤️ by Zorvaxo
+  </footer>
+
+  <script>
+    function goApi(){
+      const select = document.querySelector('select');
+      const value = select.value;
+      if(value) window.location.href = value;
+    }
+  </script>
 </body>
 </html>
