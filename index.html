@@ -1,74 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Zorvaxo Public APIs — Home</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Home Page</title>
+<style>
+  /* --- Global Styles --- */
+  * { box-sizing: border-box; margin:0; padding:0; font-family: Arial, sans-serif; }
+  body { background: linear-gradient(135deg, #e0f7ff, #c0e4ff); min-height: 100vh; display: flex; flex-direction: column; }
+
+  /* --- Top Bar / Header --- */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background: linear-gradient(90deg, #1E90FF, #00BFFF);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  header img.avatar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: 2px solid white;
+  }
+  header .icons {
+    display: flex;
+    gap: 15px;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
+  /* --- Main Content --- */
+  .main-content {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    flex: 1;
+    overflow-y: auto;
+  }
+  .card {
+    background: white;
+    color: black;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  }
+
+  /* --- Bottom Navigation --- */
+  .bottom-nav {
+    display: flex;
+    justify-content: space-around;
+    background: #fff;
+    padding: 10px 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
+  }
+  .bottom-nav button {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 15px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .bottom-nav button.active {
+    background: #1E90FF;
+    color: white;
+    box-shadow: 0 4px 8px rgba(30,144,255,0.4);
+    transform: scale(1.1);
+  }
+
+  /* Scrollbar Styling */
+  .main-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  .main-content::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.2);
+    border-radius: 4px;
+  }
+
+</style>
 </head>
-<body class="bg-gray-100 text-gray-900">
-  <!-- Header -->
-  <header class="bg-white shadow-md p-4 flex items-center justify-between">
-    <h1 class="text-xl font-bold text-indigo-600">🔥 ZORVAXO APIs</h1>
-    <div class="flex items-center space-x-3">
-      <span class="text-sm">👋 Welcome, Guest</span>
-      <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">
-        Balance: ₹100
-      </span>
-    </div>
-  </header>
+<body>
 
-  <!-- Notice -->
-  <div class="bg-blue-600 text-white text-center py-2 text-sm font-medium">
-    📢 New: Contact us on Telegram @Zorvaxo for support & updates
+<!-- --- Top Bar --- -->
+<header>
+  <div class="user-info">
+    <img src="https://i.pravatar.cc/40" alt="Avatar" class="avatar">
+    <span>Suraj Bhai</span>
   </div>
+  <div class="icons">
+    🔔
+    ⚙️
+  </div>
+</header>
 
-  <!-- Main Content -->
-  <main class="max-w-3xl mx-auto p-6">
-    <!-- Quick Info Cards -->
-    <div class="grid grid-cols-2 gap-4 mb-6">
-      <div class="bg-white shadow rounded-lg p-4 text-center">
-        <p class="text-2xl">😎</p>
-        <p class="font-semibold">Free APIs</p>
-        <p class="text-gray-500 text-sm">6 available</p>
-      </div>
-      <div class="bg-white shadow rounded-lg p-4 text-center">
-        <p class="text-2xl">💎</p>
-        <p class="font-semibold">Premium</p>
-        <p class="text-gray-500 text-sm">Coming soon</p>
-      </div>
-    </div>
+<!-- --- Main Content --- -->
+<div class="main-content">
+  <div class="card">📊 Stats</div>
+  <div class="card">⚡ Quick Actions</div>
+  <div class="card">🌟 Featured</div>
+  <div class="card">☀️ Weather</div>
+  <div class="card">📝 Notes</div>
+  <div class="card">💡 Tips</div>
+</div>
 
-    <!-- API Selector -->
-    <h2 class="text-lg font-bold text-gray-700 mb-3">Choose API</h2>
-    <form class="bg-white shadow rounded-lg p-5 space-y-4">
-      <label class="block text-sm font-medium">Select API</label>
-      <select class="w-full border rounded px-3 py-2">
-        <option value="checkban.html">Check Ban</option>
-        <option value="ffinfo.html">FF Info</option>
-        <option value="objectimage.html">Object Image</option>
-        <option value="oldnick.html">Old Nick</option>
-        <option value="rginfo.html">Region Info</option>
-        <option value="searchnick.html">Search Nick</option>
-      </select>
+<!-- --- Bottom Navigation --- -->
+<div class="bottom-nav">
+  <button class="active">🏠</button>
+  <button>🔍</button>
+  <button>❤️</button>
+  <button>⚙️</button>
+</div>
 
-      <button type="button" onclick="goApi()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-semibold transition">
-        🚀 Go to API
-      </button>
-    </form>
-  </main>
+<script>
+  // Example JS for bottom nav toggle
+  const navButtons = document.querySelectorAll('.bottom-nav button');
+  navButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      navButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
 
-  <!-- Footer -->
-  <footer class="text-center py-4 text-gray-500 text-sm">
-    Made with ❤️ by Zorvaxo
-  </footer>
-
-  <script>
-    function goApi(){
-      const select = document.querySelector('select');
-      const value = select.value;
-      if(value) window.location.href = value;
-    }
-  </script>
 </body>
 </html>
