@@ -5,80 +5,51 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Zorvaxo Public APIs — Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Neon glow effect */
-    .neon {
-      text-shadow: 0 0 10px rgba(255,255,255,0.8),
-                   0 0 20px rgba(59,130,246,0.7),
-                   0 0 40px rgba(59,130,246,0.6);
-    }
-    /* Smooth card tilt */
-    .card {
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-    .card:hover {
-      transform: perspective(1000px) rotateX(8deg) rotateY(-8deg) scale(1.05);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 25px rgba(255,255,255,0.2);
-    }
-    /* Background animation */
-    body {
-      background: linear-gradient(-45deg, #1e3a8a, #9333ea, #14b8a6, #f43f5e);
-      background-size: 400% 400%;
-      animation: gradientMove 12s ease infinite;
-    }
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-  </style>
 </head>
-<body class="text-gray-100 min-h-screen flex flex-col font-sans">
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100 min-h-screen flex flex-col">
 
   <!-- Header -->
-  <header class="bg-black/40 backdrop-blur-lg shadow-xl py-6 px-6 flex justify-between items-center text-white font-bold text-lg neon">
-    <div class="text-2xl">⚡ Zorvaxo</div>
-    <div class="flex gap-6 text-2xl cursor-pointer">
+  <header class="bg-gradient-to-r from-blue-600 to-cyan-500 shadow-lg py-6 px-6 flex justify-between items-center text-white font-bold text-lg rounded-b-xl">
+    <div>Suraj Bhai</div>
+    <div class="flex gap-4 text-2xl cursor-pointer">
       🔔 ⚙️
     </div>
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 flex flex-col justify-center items-center px-6">
-    <h1 class="text-4xl font-extrabold neon mb-10 text-center">🚀 Zorvaxo Public APIs</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-4xl">
-      
-      <a href="checkban.html" class="card flex justify-center items-center p-8 rounded-2xl bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-500 text-center font-bold text-xl">
+  <main class="flex-1 flex flex-col justify-center items-center px-6 mt-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl">
+      <a href="checkban.html" class="flex justify-center items-center p-6 bg-indigo-500 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
         🚫 Check Ban
       </a>
-      <a href="ffinfo.html" class="card flex justify-center items-center p-8 rounded-2xl bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-500 text-center font-bold text-xl">
+      <a href="ffinfo.html" class="flex justify-center items-center p-6 bg-pink-500 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
         ⚡ FF Information
       </a>
-      <a href="objectimage.html" class="card flex justify-center items-center p-8 rounded-2xl bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-500 text-center font-bold text-xl">
+      <a href="objectimage.html" class="flex justify-center items-center p-6 bg-green-400 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
         🔰 Object Image
       </a>
-      <a href="oldnick.html" class="card flex justify-center items-center p-8 rounded-2xl bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-500 text-center font-bold text-xl">
+      <a href="oldnick.html" class="flex justify-center items-center p-6 bg-yellow-400 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
         🔍 Old Nick
       </a>
-      <a href="rginfo.html" class="card flex justify-center items-center p-8 rounded-2xl bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-500 text-center font-bold text-xl">
+      <a href="rginfo.html" class="flex justify-center items-center p-6 bg-indigo-400 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
         🌐 Region Info
       </a>
-      <a href="searchnick.html" class="card flex justify-center items-center p-8 rounded-2xl bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all duration-500 text-center font-bold text-xl">
+      <a href="searchnick.html" class="flex justify-center items-center p-6 bg-purple-400 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
         🔎 Search Nick
       </a>
     </div>
   </main>
 
   <!-- Bottom Navigation -->
-  <nav class="bg-black/40 backdrop-blur-md py-4 flex justify-center shadow-inner">
-    <a href="about.html" class="text-xl bg-white/10 hover:bg-white/20 rounded-2xl px-6 py-3 neon transition-all duration-500">
+  <nav class="bg-gray-800/70 backdrop-blur-md py-4 flex justify-center shadow-inner mt-8 rounded-t-xl">
+    <a href="about.html" class="text-2xl bg-gray-700/50 rounded-xl px-5 py-2 text-white hover:scale-105 transition-transform duration-300">
       ℹ️ About
     </a>
   </nav>
 
   <!-- Footer -->
-  <footer class="py-6 text-center text-gray-300 text-sm border-t border-white/10 bg-black/40 backdrop-blur-lg">
-    Made with ❤️ by <span class="neon">Zorvaxo</span>
+  <footer class="py-4 text-center text-gray-400 text-sm border-t border-gray-700 mt-auto">
+    Made with ❤️ by Zorvaxo
   </footer>
 
 </body>
