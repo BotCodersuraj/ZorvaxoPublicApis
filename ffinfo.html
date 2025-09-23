@@ -16,8 +16,11 @@
   </header>
 
   <!-- Main Content -->
-  <main class="flex-1 flex items-start justify-center px-6 py-8">
-    <div class="w-full max-w-3xl space-y-6">
+  <main class="flex-1 flex items-center justify-center px-6 py-8">
+    <div class="w-full max-w-2xl bg-gray-800/70 p-8 rounded-2xl shadow-xl border border-gray-700 backdrop-blur-sm space-y-6">
+
+      <h1 class="text-3xl font-bold text-indigo-400 text-center mb-2">Free Fire Info Checker</h1>
+      <p class="text-gray-400 text-center">Enter UID to fetch detailed account info.</p>
 
       <!-- Input -->
       <div class="flex flex-col sm:flex-row gap-3">
@@ -28,7 +31,7 @@
       </div>
 
       <!-- Response -->
-      <div id="response" class="hidden space-y-4"></div>
+      <div id="response" class="bg-gray-900/70 p-6 rounded-2xl text-gray-300 border border-gray-700 hidden space-y-4"></div>
 
     </div>
   </main>
@@ -45,9 +48,9 @@
       const uid = document.getElementById('uid').value.trim();
       if(!uid) return alert('Please enter UID');
       const url = `${BASE}/api/ffinfo?uid=${encodeURIComponent(uid)}`;
-      
+
       const responseDiv = document.getElementById('response');
-      responseDiv.innerHTML = '<p class="text-center text-gray-400">⏳ Loading...</p>';
+      responseDiv.innerHTML = '⏳ Loading...';
       responseDiv.classList.remove('hidden');
 
       try {
@@ -55,7 +58,7 @@
         const data = await res.json();
 
         if(!data.basicInfo) {
-          responseDiv.innerHTML = '<p class="text-red-500 text-center">❌ No data found for this UID.</p>';
+          responseDiv.innerHTML = '<p class="text-red-500 font-semibold text-center">❌ No data found for this UID.</p>';
           return;
         }
 
@@ -66,64 +69,66 @@
         const s = data.socialInfo;
 
         responseDiv.innerHTML = `
-          <!-- Basic Info -->
-          <div class="bg-gray-800/70 p-5 rounded-2xl shadow-lg border border-gray-700 space-y-2">
-            <h2 class="text-xl font-bold text-indigo-400">👤 Basic Info</h2>
-            <p><span class="font-semibold">Nickname:</span> ${b.nickname}</p>
-            <p><span class="font-semibold">Account ID:</span> ${b.accountId}</p>
-            <p><span class="font-semibold">Level:</span> ${b.level}</p>
-            <p><span class="font-semibold">Region:</span> ${b.region}</p>
-            <p><span class="font-semibold">Rank:</span> ${b.rank}</p>
-            <p><span class="font-semibold">Max Rank:</span> ${b.maxRank}</p>
-            <p><span class="font-semibold">CS Rank:</span> ${b.csRank}</p>
-            <p><span class="font-semibold">Likes:</span> ${b.liked}</p>
-            <p><span class="font-semibold">Season:</span> ${b.seasonId}</p>
-            <p><span class="font-semibold">Title:</span> ${b.title}</p>
+          <div class="space-y-4">
+            <!-- Basic Info -->
+            <div>
+              <h2 class="text-xl font-bold text-indigo-400">👤 Basic Info</h2>
+              <p><span class="font-semibold">Nickname:</span> ${b.nickname}</p>
+              <p><span class="font-semibold">Account ID:</span> ${b.accountId}</p>
+              <p><span class="font-semibold">Level:</span> ${b.level}</p>
+              <p><span class="font-semibold">Region:</span> ${b.region}</p>
+              <p><span class="font-semibold">Rank:</span> ${b.rank}</p>
+              <p><span class="font-semibold">Max Rank:</span> ${b.maxRank}</p>
+              <p><span class="font-semibold">CS Rank:</span> ${b.csRank}</p>
+              <p><span class="font-semibold">Likes:</span> ${b.liked}</p>
+              <p><span class="font-semibold">Season:</span> ${b.seasonId}</p>
+              <p><span class="font-semibold">Title:</span> ${b.title}</p>
+            </div>
+
+            <!-- Pet Info -->
+            ${p ? `
+            <div>
+              <h2 class="text-xl font-bold text-purple-400">🐾 Pet Info</h2>
+              <p><span class="font-semibold">Pet ID:</span> ${p.petId}</p>
+              <p><span class="font-semibold">Level:</span> ${p.level}</p>
+              <p><span class="font-semibold">Selected:</span> ${p.isSelected ? '✅ Yes' : '❌ No'}</p>
+              <p><span class="font-semibold">Selected Skill ID:</span> ${p.selectedSkillId}</p>
+              <p><span class="font-semibold">Skin ID:</span> ${p.skinId}</p>
+            </div>` : ''}
+
+            <!-- Diamond Info -->
+            ${d ? `
+            <div>
+              <h2 class="text-xl font-bold text-yellow-400">💎 Diamond Cost</h2>
+              <p><span class="font-semibold">Diamond Cost:</span> ${d.diamondCost}</p>
+            </div>` : ''}
+
+            <!-- Credit Score -->
+            ${c ? `
+            <div>
+              <h2 class="text-xl font-bold text-green-400">📊 Credit Score</h2>
+              <p><span class="font-semibold">Score:</span> ${c.score}</p>
+              <p><span class="font-semibold">Reason:</span> ${c.reason}</p>
+              <p><span class="font-semibold">Start:</span> ${c.start}</p>
+              <p><span class="font-semibold">End:</span> ${c.end}</p>
+            </div>` : ''}
+
+            <!-- Social Info -->
+            ${s ? `
+            <div>
+              <h2 class="text-xl font-bold text-cyan-400">🌐 Social Info</h2>
+              <p><span class="font-semibold">Account ID:</span> ${s.accountId}</p>
+              <p><span class="font-semibold">Gender:</span> ${s.gender}</p>
+              <p><span class="font-semibold">Language:</span> ${s.language}</p>
+              <p><span class="font-semibold">Privacy:</span> ${s.privacy}</p>
+              <p><span class="font-semibold">Social Highlight:</span> <br><span class="text-gray-300 whitespace-pre-line">${s.socialHighlight || 'N/A'}</span></p>
+            </div>` : ''}
           </div>
-
-          <!-- Pet Info -->
-          ${p ? `
-          <div class="bg-gray-800/70 p-5 rounded-2xl shadow-lg border border-gray-700 space-y-2">
-            <h2 class="text-xl font-bold text-purple-400">🐾 Pet Info</h2>
-            <p><span class="font-semibold">Pet ID:</span> ${p.petId}</p>
-            <p><span class="font-semibold">Level:</span> ${p.level}</p>
-            <p><span class="font-semibold">Selected:</span> ${p.isSelected ? '✅ Yes' : '❌ No'}</p>
-            <p><span class="font-semibold">Selected Skill ID:</span> ${p.selectedSkillId}</p>
-            <p><span class="font-semibold">Skin ID:</span> ${p.skinId}</p>
-          </div>` : ''}
-
-          <!-- Diamond Info -->
-          ${d ? `
-          <div class="bg-gray-800/70 p-5 rounded-2xl shadow-lg border border-gray-700 space-y-2">
-            <h2 class="text-xl font-bold text-yellow-400">💎 Diamond Cost</h2>
-            <p><span class="font-semibold">Diamond Cost:</span> ${d.diamondCost}</p>
-          </div>` : ''}
-
-          <!-- Credit Score -->
-          ${c ? `
-          <div class="bg-gray-800/70 p-5 rounded-2xl shadow-lg border border-gray-700 space-y-2">
-            <h2 class="text-xl font-bold text-green-400">📊 Credit Score</h2>
-            <p><span class="font-semibold">Score:</span> ${c.score}</p>
-            <p><span class="font-semibold">Reason:</span> ${c.reason}</p>
-            <p><span class="font-semibold">Start:</span> ${c.start}</p>
-            <p><span class="font-semibold">End:</span> ${c.end}</p>
-          </div>` : ''}
-
-          <!-- Social Info -->
-          ${s ? `
-          <div class="bg-gray-800/70 p-5 rounded-2xl shadow-lg border border-gray-700 space-y-2">
-            <h2 class="text-xl font-bold text-cyan-400">🌐 Social Info</h2>
-            <p><span class="font-semibold">Account ID:</span> ${s.accountId}</p>
-            <p><span class="font-semibold">Gender:</span> ${s.gender}</p>
-            <p><span class="font-semibold">Language:</span> ${s.language}</p>
-            <p><span class="font-semibold">Privacy:</span> ${s.privacy}</p>
-            <p><span class="font-semibold">Social Highlight:</span> <br><span class="text-gray-300 whitespace-pre-line">${s.socialHighlight || 'N/A'}</span></p>
-          </div>` : ''}
 
           <p class="text-gray-400 text-sm text-center mt-2">Credits: ${data.credits}</p>
         `;
       } catch(err){
-        responseDiv.innerHTML = '<p class="text-red-500 text-center">❌ Error: '+err+'</p>';
+        responseDiv.innerHTML = '<p class="text-red-500 font-semibold text-center">❌ Error: '+err+'</p>';
       }
     }
   </script>
