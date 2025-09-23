@@ -1,34 +1,36 @@
-// server.js
-import express from "express";
-import fetch from "node-fetch"; // npm install node-fetch
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inspect URL</title>
+</head>
+<body>
+  <input type="text" id="url" placeholder="Enter URL" style="width:300px">
+  <button onclick="inspectURL()">Inspect</button>
+  <pre id="output"></pre>
 
-const app = express();
-const PORT = 3000;
+  <script>
+    async function inspectURL() {
+      const url = document.getElementById('url').value;
+      if (!url) return alert("Enter a URL");
 
-app.get("/inspect", async (req, res) => {
-  const url = req.query.url;
-  if (!url) {
-    return res.status(400).json({ success: "false", error: "Please provide a URL" });
-  }
+      // CORS proxy use kar rahe
+      const proxyURL = 'https://api.allorigins.win/get?url=' + encodeURIComponent(url);
 
-  try {
-    const response = await fetch(url);
-    const text = await response.text();
-
-    // Simple JSON output
-    const result = {
-      message: text.slice(0, 200) // sirf pehle 200 characters for demo
-    };
-
-    res.json({
-      success: "true",
-      inspect: result
-    });
-  } catch (err) {
-    res.status(500).json({ success: "false", error: err.message });
-  }
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+      try {
+        const response = await fetch(proxyURL);
+        const data = await response.json();
+        // Content JSON me wrap karke dikha rahe
+        document.getElementById('output').textContent = JSON.stringify({
+          success: "true",
+          inspect: { content: data.contents }
+        }, null, 2);
+      } catch (err) {
+        document.getElementById('output').textContent = JSON.stringify({
+          success: "false",
+          error: err.message
+        }, null, 2);
+      }
+    }
+  </script>
+</body>
+</html>
