@@ -1,56 +1,103 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Zorvaxo Public APIs — Home</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suraj Bhai App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+        .header {
+            background: linear-gradient(to bottom, #00BFFF, #1E90FF);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header .name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .header .icons {
+            display: flex;
+            gap: 10px;
+            font-size: 20px;
+        }
+        .buttons-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 20px;
+        }
+        .button {
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+        }
+        .button1 {
+            background-color: #8A2BE2;
+        }
+        .button2 {
+            background-color: #FFD700;
+        }
+        .button3 {
+            background-color: #FF69B4;
+        }
+        .button4 {
+            background-color: #ADD8E6;
+        }
+        .button5 {
+            background-color: #90EE90;
+        }
+        .button6 {
+            background-color: #DDA0DD;
+        }
+        .about-button {
+            background-color: #9370DB;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            text-align: center;
+            margin: 0 20px 20px;
+        }
+        .footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100 min-h-screen flex flex-col">
-
-  <!-- Header -->
-  <header class="bg-gradient-to-r from-blue-600 to-cyan-500 shadow-lg py-6 px-6 flex justify-between items-center text-white font-bold text-lg rounded-b-xl">
-    <div>Suraj Bhai</div>
-    <div class="flex gap-4 text-2xl cursor-pointer">
-      🔔 ⚙️
+<body>
+    <div class="header">
+        <div class="name">Suraj Bhai</div>
+        <div class="icons">
+            <span>🔔</span>
+            <span>⚙️</span>
+        </div>
     </div>
-  </header>
-
-  <!-- Main Content -->
-  <main class="flex-1 flex flex-col justify-center items-center px-6 mt-8">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-3xl">
-      <a href="checkban.html" class="flex justify-center items-center p-6 bg-indigo-500 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
-        🚫 Check Ban
-      </a>
-      <a href="ffinfo.html" class="flex justify-center items-center p-6 bg-pink-500 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
-        ⚡ FF Information
-      </a>
-      <a href="objectimage.html" class="flex justify-center items-center p-6 bg-green-400 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
-        🔰 Object Image
-      </a>
-      <a href="oldnick.html" class="flex justify-center items-center p-6 bg-yellow-400 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
-        🔍 Old Nick
-      </a>
-      <a href="rginfo.html" class="flex justify-center items-center p-6 bg-indigo-400 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
-        🌐 Region Info
-      </a>
-      <a href="searchnick.html" class="flex justify-center items-center p-6 bg-purple-400 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300 font-bold text-center">
-        🔎 Search Nick
-      </a>
+    <div class="buttons-container">
+        <button class="button button1">Check Ban</button>
+        <button class="button button2">Old Nick</button>
+        <button class="button button3">FF Information</button>
+        <button class="button button4">Region Info</button>
+        <button class="button button5">Object Image</button>
+        <button class="button button6">Search Nick</button>
     </div>
-  </main>
-
-  <!-- Bottom Navigation -->
-  <nav class="bg-gray-800/70 backdrop-blur-md py-4 flex justify-center shadow-inner mt-8 rounded-t-xl">
-    <a href="about.html" class="text-2xl bg-gray-700/50 rounded-xl px-5 py-2 text-white hover:scale-105 transition-transform duration-300">
-      ℹ️ About
-    </a>
-  </nav>
-
-  <!-- Footer -->
-  <footer class="py-4 text-center text-gray-400 text-sm border-t border-gray-700 mt-auto">
-    Made with ❤️ by Zorvaxo
-  </footer>
-
+    <button class="about-button">About & Developer Info</button>
+    <div class="footer">
+        Made with ❤️ by Zorvaxo
+    </div>
 </body>
 </html>
