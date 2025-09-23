@@ -7,79 +7,83 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #333;
+            background-color: #222;
             margin: 0;
             padding: 0;
             color: white;
         }
+        /* Header */
         .header {
-            background: linear-gradient(to bottom, #00BFFF, #1E90FF);
-            padding: 10px;
+            background: linear-gradient(to right, #00BFFF, #1E90FF);
+            padding: 12px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         .header .name {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
         }
         .header .icons {
             display: flex;
-            gap: 10px;
-            font-size: 20px;
+            gap: 12px;
+            font-size: 22px;
+            cursor: pointer;
         }
+        /* Buttons grid */
         .buttons-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 12px;
             padding: 20px;
         }
         .button {
-            padding: 15px;
+            padding: 16px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             color: white;
             font-size: 16px;
             text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
-        .button1 {
-            background-color: #8A2BE2;
+        .button:hover {
+            transform: scale(1.05);
         }
-        .button2 {
-            background-color: #FFD700;
-        }
-        .button3 {
-            background-color: #FF69B4;
-        }
-        .button4 {
-            background-color: #ADD8E6;
-        }
-        .button5 {
-            background-color: #90EE90;
-        }
-        .button6 {
-            background-color: #DDA0DD;
-        }
+        .button1 { background-color: #8A2BE2; } /* Check Ban */
+        .button2 { background-color: #FFD700; } /* Old Nick */
+        .button3 { background-color: #FF69B4; } /* FF Information */
+        .button4 { background-color: #00CED1; } /* Region Info */
+        .button5 { background-color: #32CD32; } /* Object Image */
+        .button6 { background-color: #DA70D6; } /* Search Nick */
+        /* About button */
         .about-button {
             background-color: #9370DB;
-            padding: 15px;
+            padding: 16px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             color: white;
             font-size: 16px;
-            text-align: center;
+            width: calc(100% - 40px);
             margin: 0 20px 20px;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
+        .about-button:hover {
+            transform: scale(1.05);
+        }
+        /* Footer */
         .footer {
-            background-color: #333;
+            background-color: #222;
             color: white;
-            padding: 10px;
+            padding: 12px;
             text-align: center;
             font-size: 14px;
         }
     </style>
 </head>
 <body>
+    <!-- Header -->
     <div class="header">
         <div class="name">Suraj Bhai</div>
         <div class="icons">
@@ -87,15 +91,21 @@
             <span>⚙️</span>
         </div>
     </div>
+
+    <!-- Buttons Grid -->
     <div class="buttons-container">
-        <button class="button button1">Check Ban</button>
-        <button class="button button2">Old Nick</button>
-        <button class="button button3">FF Information</button>
-        <button class="button button4">Region Info</button>
-        <button class="button button5">Object Image</button>
-        <button class="button button6">Search Nick</button>
+        <button class="button button1">🚫 Check Ban</button>
+        <button class="button button2">🔍 Old Nick</button>
+        <button class="button button3">⚡ FF Information</button>
+        <button class="button button4">🌐 Region Info</button>
+        <button class="button button5">🔰 Object Image</button>
+        <button class="button button6">🔎 Search Nick</button>
     </div>
-    <button class="about-button">About & Developer Info</button>
+
+    <!-- About Button -->
+    <button class="about-button">ℹ️ About & Developer Info</button>
+
+    <!-- Footer -->
     <div class="footer">
         Made with ❤️ by Zorvaxo
     </div>
