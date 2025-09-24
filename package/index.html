@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Fire Packages</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #1e1e1e; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
+  .container { background: #2c2c2c; padding: 20px; border-radius: 10px; width: 300px; }
+  select, button { width: 100%; padding: 10px; margin-top: 15px; border-radius: 5px; border: none; }
+  button { background: #ffcc00; color: #1e1e1e; font-weight: bold; cursor: pointer; }
+  button:hover { background: #e6b800; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Select Package</h2>
+  <select id="packageSelect">
+    <option value="3000 Likes">3000 Likes - ₹19</option>
+    <option value="6000 Likes">6000 Likes - ₹38</option>
+    <option value="10000 Likes">10000 Likes - ₹64</option>
+    <option value="15000 Likes">15000 Likes - ₹95</option>
+    <option value="18000 Likes">18000 Likes - ₹114</option>
+    <option value="22500 Likes">22500 Likes - ₹143</option>
+    <option value="27000 Likes">27000 Likes - ₹171</option>
+    <option value="33000 Likes">33000 Likes - ₹209</option>
+  </select>
+
+  <button id="buyBtn">Buy</button>
+</div>
+
+<script>
+document.getElementById('buyBtn').onclick = function() {
+  const packageName = document.getElementById('packageSelect').value;
+  if(!packageName) {
+    alert("Please select a package!");
+    return;
+  }
+
+  // Replace spaces with %20 for URL encoding
+  const urlPackage = encodeURIComponent(packageName);
+
+  // Redirect to buy page
+  window.location.href = `package/buy?packagename=${urlPackage}`;
+};
+</script>
+
+</body>
+</html>
