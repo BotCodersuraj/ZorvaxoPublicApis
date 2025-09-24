@@ -3,99 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Chat Panel</title>
+<title>Free Fire Auto Like Buy</title>
 <style>
-  body { font-family: Arial, sans-serif; background: #1e1e1e; color: #fff; padding: 20px; }
-  h1 { text-align: center; color: #ffcc00; }
-  #users { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
-  .userBtn { background: #00ffcc; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
-  #chatContainer { background: #2c2c2c; padding: 10px; border-radius: 10px; width: 100%; max-width: 600px; margin: auto; display: flex; flex-direction: column; }
-  #messages { flex: 1; overflow-y: auto; margin-bottom: 10px; border: 1px solid #555; padding: 5px; border-radius: 5px; height: 300px; }
-  .message { padding: 5px 10px; margin: 5px 0; border-radius: 5px; max-width: 80%; }
-  .user { background: #00ffcc; color: #000; align-self: flex-start; }
-  .admin { background: #ffcc00; color: #000; align-self: flex-end; }
-  #inputContainer { display: flex; }
-  #inputContainer input { flex: 1; padding: 8px; border-radius: 5px 0 0 5px; border: none; }
-  #inputContainer button { padding: 8px; border: none; background: #ffcc00; color: #000; border-radius: 0 5px 5px 0; cursor: pointer; }
+  body { font-family: Arial, sans-serif; background: #1e1e1e; color: #fff; margin: 0; padding: 20px; }
+  h1 { text-align: center; color: #ffcc00; margin-bottom: 20px; }
+  .container { max-width: 500px; margin: auto; background: #2c2c2c; padding: 20px; border-radius: 10px; }
+  label { display: block; margin: 10px 0 5px; }
+  input, select, button { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: none; }
+  button { background: #ffcc00; color: #1e1e1e; font-weight: bold; cursor: pointer; }
+  button:hover { background: #e6b800; }
 </style>
 </head>
 <body>
 
-<h1>Admin Chat Panel</h1>
+<h1>Free Fire Auto Like Buy</h1>
+<div class="container">
+  <label for="packageSelect">Select Package:</label>
+  <select id="packageSelect">
+    <option value="3000 Likes">3000 Likes - ₹19</option>
+    <option value="6000 Likes">6000 Likes - ₹38</option>
+    <option value="10000 Likes">10000 Likes - ₹64</option>
+    <option value="15000 Likes">15000 Likes - ₹95</option>
+    <option value="18000 Likes">18000 Likes - ₹114</option>
+    <option value="22500 Likes">22500 Likes - ₹143</option>
+    <option value="27000 Likes">27000 Likes - ₹171</option>
+    <option value="33000 Likes">33000 Likes - ₹209</option>
+  </select>
 
-<div id="users"></div>
+  <label for="ffUid">Enter Your FF UID:</label>
+  <input type="text" id="ffUid" placeholder="Enter your FF UID">
 
-<div id="chatContainer" style="display:none;">
-  <div id="messages"></div>
-  <div id="inputContainer">
-    <input type="text" id="messageInput" placeholder="Type a reply..." />
-    <button onclick="sendAdminMessage()">Send</button>
-  </div>
+  <label for="txnId">Enter Transaction ID:</label>
+  <input type="text" id="txnId" placeholder="Enter your Transaction ID">
+
+  <button id="doneBtn">Done</button>
 </div>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
 <script>
-  const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "SENDER_ID",
-    appId: "APP_ID"
-  };
+document.getElementById('doneBtn').onclick = function() {
+  const packageName = document.getElementById('packageSelect').value;
+  const ffUid = document.getElementById('ffUid').value.trim();
+  const transactionId = document.getElementById('txnId').value.trim();
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
-
-  let currentUser = null;
-  const usersDiv = document.getElementById('users');
-  const chatContainer = document.getElementById('chatContainer');
-  const messagesDiv = document.getElementById('messages');
-
-  // Get unique users
-  db.ref('chat').on('child_added', snapshot => {
-    const msg = snapshot.val();
-    if(!usersDiv.querySelector('#user-' + snapshot.key)) {
-      const btn = document.createElement('button');
-      btn.id = 'user-' + snapshot.key;
-      btn.className = 'userBtn';
-      btn.innerText = 'User ' + snapshot.key;
-      btn.onclick = () => openChat(snapshot.key);
-      usersDiv.appendChild(btn);
-    }
-  });
-
-  function openChat(userKey) {
-    currentUser = userKey;
-    chatContainer.style.display = 'flex';
-    messagesDiv.innerHTML = '';
-
-    db.ref('chat').orderByKey().equalTo(userKey).on('value', snapshot => {
-      messagesDiv.innerHTML = '';
-      snapshot.forEach(child => {
-        const msg = child.val();
-        const div = document.createElement('div');
-        div.classList.add('message');
-        div.classList.add(msg.sender);
-        div.innerText = msg.text;
-        messagesDiv.appendChild(div);
-      });
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-    });
+  if(!ffUid || !transactionId) {
+    alert("Please enter FF UID and Transaction ID!");
+    return;
   }
 
-  function sendAdminMessage() {
-    const input = document.getElementById('messageInput');
-    const text = input.value.trim();
-    if(!text || !currentUser) return;
-    db.ref('chat/' + currentUser + '/messages').push({ sender: 'admin', text: text });
-    input.value = '';
-  }
+  const message = `Hello Admin, I Select ${packageName} package. My Uid Is ${ffUid} And Start My Auto Like System. And My Transaction ID is ${transactionId}. Thanks 🙏🏻`;
 
+  // WhatsApp link
+  const phone = "911234567890"; // replace with admin number
+  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+  // Open WhatsApp web
+  window.open(url, "_blank");
+
+  alert("Your message is ready to send to Admin!");
+};
 </script>
 
 </body>
