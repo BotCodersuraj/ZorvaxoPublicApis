@@ -12,49 +12,20 @@
     margin: 0;
     padding: 20px;
   }
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #ffcc00;
-  }
-  .packages {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-  }
-  .card {
-    background: #2c2c2c;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: transform 0.2s;
-  }
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  .price {
-    font-size: 24px;
-    color: #00ffcc;
-    margin: 10px 0;
-  }
-  .likes {
-    font-size: 18px;
-    margin-bottom: 15px;
-  }
-  button {
-    background: #ffcc00;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #1e1e1e;
-    transition: background 0.2s;
-  }
-  button:hover {
-    background: #e6b800;
-  }
+  h1 { text-align: center; margin-bottom: 20px; color: #ffcc00; }
+  .packages { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+  .card { background: #2c2c2c; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.2s; }
+  .card:hover { transform: translateY(-5px); }
+  .price { font-size: 24px; color: #00ffcc; margin: 10px 0; }
+  .likes { font-size: 18px; margin-bottom: 15px; }
+  button { background: #ffcc00; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; color: #1e1e1e; transition: background 0.2s; }
+  button:hover { background: #e6b800; }
+
+  /* Modal styles */
+  .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; }
+  .modal-content { background:#2c2c2c; padding:20px; border-radius:10px; width:90%; max-width:400px; text-align:center; }
+  .modal-content h2 { color:#ffcc00; }
+  .modal-content p { color:#fff; font-size:14px; margin:15px 0; }
 </style>
 </head>
 <body>
@@ -62,6 +33,16 @@
 <h1>Free Fire Auto Like Packages</h1>
 
 <div class="packages" id="packages"></div>
+
+<!-- Terms Modal -->
+<div class="modal" id="termsModal">
+  <div class="modal-content">
+    <h2>Terms & Conditions</h2>
+    <p>By using this website, you agree to the terms & conditions and allow us to access your location coordinates.</p>
+    <button id="acceptBtn">Accept</button>
+    <button id="declineBtn">Decline</button>
+  </div>
+</div>
 
 <script>
   const packageList = [
@@ -88,7 +69,37 @@
   ];
 
   const container = document.getElementById('packages');
+  const modal = document.getElementById('termsModal');
+  const acceptBtn = document.getElementById('acceptBtn');
+  const declineBtn = document.getElementById('declineBtn');
 
+  // Show modal on page load
+  window.onload = function() {
+    modal.style.display = 'flex';
+  };
+
+  // Accept terms
+  acceptBtn.onclick = function() {
+    modal.style.display = 'none';
+    // Get user location coordinates
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        console.log("User coordinates:", position.coords.latitude, position.coords.longitude);
+      }, function(err){
+        console.log("Location access denied.");
+      });
+    } else {
+      console.log("Geolocation not supported.");
+    }
+  };
+
+  // Decline terms → redirect away
+  declineBtn.onclick = function() {
+    alert("You must accept terms to use this website.");
+    window.location.href = "https://google.com"; // redirect somewhere
+  };
+
+  // Create package cards
   packageList.forEach((pkg, index) => {
     const card = document.createElement('div');
     card.className = 'card';
@@ -104,7 +115,7 @@
   function buyPackage(likes) {
     const packageName = likes + " Likes";
     const urlPackage = encodeURIComponent(packageName);
-    window.location.href = `likepackages/index.html?packagename=${urlPackage}`;
+    window.location.href = `likepackages.html?packagename=${urlPackage}`;
   }
 </script>
 
