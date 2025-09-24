@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Fire Auto Like Buy</title>
+<title>Buy Free Fire Auto Like</title>
 <style>
   body { font-family: Arial, sans-serif; background: #1e1e1e; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
   .container { background: #2c2c2c; padding: 20px; border-radius: 10px; width: 350px; }
@@ -11,14 +11,17 @@
   input, button { width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 10px; }
   button { background: #ffcc00; color: #1e1e1e; font-weight: bold; cursor: pointer; }
   button:hover { background: #e6b800; }
+  p.info { color: #ffcc00; margin-top: 10px; font-size: 14px; }
 </style>
 </head>
 <body>
 
 <div class="container">
   <h2>Buy Package</h2>
-
   <p id="selectedPackage"></p>
+  <p class="info">
+    Note: Likes will be added automatically daily. Maximum 100 Likes per day. Please be patient after purchasing your package.
+  </p>
 
   <label for="ffUid">Enter Your FF UID:</label>
   <input type="text" id="ffUid" placeholder="Enter your FF UID">
@@ -36,7 +39,7 @@
 
   if(!packageName) {
     alert("No package selected! Redirecting to home page...");
-    window.location.href = "/"; // redirect to home if no package
+    window.location.href = "index.html";
   } else {
     document.getElementById('selectedPackage').innerText = "Selected Package: " + packageName;
   }
@@ -50,9 +53,9 @@
       return;
     }
 
-    const message = `Hello Admin, I Select ${packageName} package. My Uid Is ${ffUid} And Start My Auto Like System. And My Transaction ID is ${txnId}. Thanks 🙏🏻`;
+    const message = `Hello Admin, I Select ${packageName} package. My Uid Is ${ffUid} And Start My Auto Like System. Maximum 100 Likes per day. Transaction ID: ${txnId}. Thanks 🙏🏻`;
 
-    // WhatsApp link (replace with your number)
+    // WhatsApp link (replace with admin number)
     const phone = "911234567890";
     const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 
