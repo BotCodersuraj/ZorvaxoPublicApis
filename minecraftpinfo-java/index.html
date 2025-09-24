@@ -1,95 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft Player Info</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #1a1a1a, #333);
-            color: white;
-            text-align: center;
-            padding: 50px;
-        }
-        input {
-            padding: 10px;
-            font-size: 16px;
-            width: 220px;
-            border-radius: 5px;
-            border: none;
-            margin-right: 10px;
-        }
-        button {
-            padding: 10px 15px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .player-info {
-            margin-top: 30px;
-            text-align: center;
-        }
-        .player-info div {
-            margin: 20px 0;
-        }
-        .player-info img {
-            border-radius: 0; /* Circle hata diya */
-            border: 3px solid #4CAF50;
-            margin: 10px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft Player Info</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    /* Body & Background */
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        padding: 40px 20px;
+        overflow-x: hidden;
+        animation: bgMove 20s infinite alternate;
+    }
+
+    @keyframes bgMove {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
+
+    h1 {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 2rem;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 8px #000;
+        animation: titleBounce 1.5s ease-in-out infinite;
+    }
+
+    @keyframes titleBounce {
+        0%, 100% {transform: translateY(0);}
+        50% {transform: translateY(-10px);}
+    }
+
+    /* Input & Button */
+    .input-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    input {
+        padding: 12px 15px;
+        font-size: 16px;
+        border-radius: 12px;
+        border: none;
+        outline: none;
+        width: 220px;
+        transition: 0.3s;
+        background: rgba(255,255,255,0.1);
+        color: white;
+        backdrop-filter: blur(5px);
+    }
+
+    input:focus {
+        background: rgba(255,255,255,0.2);
+        box-shadow: 0 0 10px #4CAF50;
+    }
+
+    button {
+        padding: 12px 20px;
+        font-size: 16px;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        background: linear-gradient(45deg, #4CAF50, #81C784);
+        color: white;
+        font-weight: bold;
+        transition: 0.4s;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    button:hover {
+        transform: scale(1.1);
+        background: linear-gradient(45deg, #81C784, #4CAF50);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+    }
+
+    /* Player Info Card */
+    .player-info {
+        margin-top: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        max-width: 400px;
+        width: 90%;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.05);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 20px;
+        text-align: center;
+        width: 100%;
+        transition: 0.3s;
+        border: 2px solid rgba(76, 175, 80, 0.5);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .card:hover {
+        transform: scale(1.03);
+        border-color: #4CAF50;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.7);
+    }
+
+    .card img {
+        width: 150px;
+        height: 150px;
+        border-radius: 15px;
+        border: 3px solid #4CAF50;
+        transition: 0.3s;
+    }
+
+    .card img:hover {
+        transform: rotateY(360deg) scale(1.1);
+    }
+
+    h2 {
+        font-family: 'Press Start 2P', cursive;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: #4CAF50;
+    }
+
+    h3 {
+        margin: 10px 0 5px 0;
+        color: #A5D6A7;
+    }
+
+    p {
+        font-size: 14px;
+        word-wrap: break-word;
+    }
+
+    .error {
+        color: #FF5252;
+        font-weight: bold;
+        text-shadow: 1px 1px 4px #000;
+    }
+</style>
 </head>
 <body>
-    <h1>Minecraft Player Info</h1>
+
+<h1>Minecraft Player Info</h1>
+
+<div class="input-container">
     <input type="text" id="username" placeholder="Enter Minecraft Username">
     <button onclick="getPlayerInfo()">Get Info</button>
+</div>
 
-    <div class="player-info" id="playerInfo"></div>
+<div class="player-info" id="playerInfo"></div>
 
-    <script>
-        async function getPlayerInfo() {
-            const username = document.getElementById('username').value.trim();
-            if(!username) return alert("Username dalna zaroori hai!");
+<script>
+async function getPlayerInfo() {
+    const username = document.getElementById('username').value.trim();
+    if(!username) return alert("Username dalna zaroori hai!");
 
-            const apiUrl = `https://mcplayer-info.vercel.app/minecraft-jenil?user=${username}`;
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
+    const apiUrl = `https://mcplayer-info.vercel.app/minecraft-jenil?user=${username}`;
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
 
-            try {
-                const response = await fetch(proxyUrl);
-                if(!response.ok) throw new Error("Player not found");
+    try {
+        const response = await fetch(proxyUrl);
+        if(!response.ok) throw new Error("Player not found");
 
-                const textData = await response.json();
-                const data = JSON.parse(textData.contents);
+        const textData = await response.json();
+        const data = JSON.parse(textData.contents);
 
-                // Skin render fallback
-                const skinRender = data.crafatar_skin_render || data.avatar;
+        const skinRender = data.crafatar_skin_render || data.avatar;
 
-                document.getElementById('playerInfo').innerHTML = `
-                    <h2>${data.username}</h2>
-                    <div>
-                        <h3>Avatar</h3>
-                        <img src="${data.avatar}" alt="Avatar" width="150" height="150">
-                    </div>
-                    <div>
-                        <h3>Skin Render</h3>
-                        <img src="${skinRender}" alt="Skin Render" width="250" height="400">
-                    </div>
-                    <div>
-                        <h3>UUID</h3>
-                        <p>${data.formatted_uuid}</p>
-                    </div>
-                `;
-            } catch (err) {
-                document.getElementById('playerInfo').innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
-            }
-        }
-    </script>
+        document.getElementById('playerInfo').innerHTML = `
+            <div class="card">
+                <h2>${data.username}</h2>
+                <div>
+                    <h3>Avatar</h3>
+                    <img src="${data.avatar}" alt="Avatar">
+                </div>
+            </div>
+            <div class="card">
+                <h3>Skin Render</h3>
+                <img src="${skinRender}" alt="Skin Render" width="250" height="400">
+            </div>
+            <div class="card">
+                <h3>UUID</h3>
+                <p>${data.formatted_uuid}</p>
+            </div>
+        `;
+    } catch (err) {
+        document.getElementById('playerInfo').innerHTML = `<p class="error">Error: ${err.message}</p>`;
+    }
+}
+</script>
+
 </body>
 </html>
