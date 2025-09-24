@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ht<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,7 @@
         input {
             padding: 10px;
             font-size: 16px;
-            width: 200px;
+            width: 220px;
             border-radius: 5px;
             border: none;
             margin-right: 10px;
@@ -40,6 +40,9 @@
             border: 3px solid #4CAF50;
             margin: 10px;
         }
+        .player-info div {
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
@@ -51,14 +54,19 @@
 
     <script>
         async function getPlayerInfo() {
-            const username = document.getElementById('username').value;
+            const username = document.getElementById('username').value.trim();
             if(!username) return alert("Username dalna zaroori hai!");
-            
+
             const apiUrl = `https://mcplayer-info.vercel.app/minecraft-jenil?user=${username}`;
+
             try {
                 const response = await fetch(apiUrl);
                 if(!response.ok) throw new Error("Player not found");
+
                 const data = await response.json();
+
+                // Agar skin render ka field API me nahi hai to default avatar show karenge
+                const skinRender = data.crafatar_skin_render || data.avatar;
 
                 document.getElementById('playerInfo').innerHTML = `
                     <h2>${data.username}</h2>
@@ -68,7 +76,7 @@
                     </div>
                     <div>
                         <h3>Skin Render</h3>
-                        <img src="${data.crafatar_skin_render}" alt="Skin Render" width="250" height="400">
+                        <img src="${skinRender}" alt="Skin Render" width="250" height="400">
                     </div>
                     <div>
                         <h3>UUID</h3>
@@ -76,7 +84,7 @@
                     </div>
                 `;
             } catch (err) {
-                alert("Error: " + err.message);
+                document.getElementById('playerInfo').innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
             }
         }
     </script>
