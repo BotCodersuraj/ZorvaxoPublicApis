@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minecraft Player Info</title>
+<title>Minecraft Player Info 🌈</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
     /* Body & Background */
     body {
         font-family: 'Roboto', sans-serif;
-        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        background: linear-gradient(135deg, #ff5f6d, #ffc371, #47b5ff, #9bffca, #ff99c8);
+        background-size: 400% 400%;
         color: white;
         display: flex;
         flex-direction: column;
@@ -17,8 +18,7 @@
         justify-content: flex-start;
         min-height: 100vh;
         padding: 40px 20px;
-        overflow-x: hidden;
-        animation: bgMove 20s infinite alternate;
+        animation: bgMove 20s ease infinite;
     }
 
     @keyframes bgMove {
@@ -29,15 +29,18 @@
 
     h1 {
         font-family: 'Press Start 2P', cursive;
-        font-size: 2rem;
+        font-size: 2.2rem;
         margin-bottom: 30px;
+        background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: rainbowText 3s linear infinite;
         text-shadow: 2px 2px 8px #000;
-        animation: titleBounce 1.5s ease-in-out infinite;
     }
 
-    @keyframes titleBounce {
-        0%, 100% {transform: translateY(0);}
-        50% {transform: translateY(-10px);}
+    @keyframes rainbowText {
+        0% {background-position: 0%;}
+        100% {background-position: 360%;}
     }
 
     /* Input & Button */
@@ -45,44 +48,54 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
+        gap: 15px;
     }
 
     input {
-        padding: 12px 15px;
+        padding: 12px 20px;
         font-size: 16px;
         border-radius: 12px;
-        border: none;
+        border: 2px solid transparent;
         outline: none;
-        width: 220px;
-        transition: 0.3s;
-        background: rgba(255,255,255,0.1);
+        width: 240px;
+        transition: 0.4s;
+        background: rgba(255,255,255,0.15);
         color: white;
         backdrop-filter: blur(5px);
+        border-image-slice: 1;
+        border-image-source: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
     }
 
     input:focus {
-        background: rgba(255,255,255,0.2);
-        box-shadow: 0 0 10px #4CAF50;
+        background: rgba(255,255,255,0.3);
+        box-shadow: 0 0 15px rgba(255,255,255,0.5);
+        border-color: white;
     }
 
     button {
-        padding: 12px 20px;
+        padding: 12px 25px;
         font-size: 16px;
         border-radius: 12px;
         border: none;
         cursor: pointer;
-        background: linear-gradient(45deg, #4CAF50, #81C784);
-        color: white;
         font-weight: bold;
-        transition: 0.4s;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        color: white;
+        background: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+        background-size: 300% 300%;
+        animation: rainbowBG 5s ease infinite;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        transition: transform 0.3s, box-shadow 0.3s;
     }
 
     button:hover {
-        transform: scale(1.1);
-        background: linear-gradient(45deg, #81C784, #4CAF50);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+        transform: scale(1.15) rotate(-3deg);
+        box-shadow: 0 6px 25px rgba(0,0,0,0.6);
+    }
+
+    @keyframes rainbowBG {
+        0% {background-position: 0%;}
+        50% {background-position: 100%;}
+        100% {background-position: 0%;}
     }
 
     /* Player Info Card */
@@ -91,68 +104,85 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 25px;
-        max-width: 400px;
-        width: 90%;
+        gap: 30px;
+        max-width: 450px;
+        width: 95%;
     }
 
     .card {
-        background: rgba(255,255,255,0.05);
-        backdrop-filter: blur(10px);
-        padding: 20px;
-        border-radius: 20px;
+        background: rgba(0,0,0,0.25);
+        backdrop-filter: blur(12px);
+        padding: 25px;
+        border-radius: 25px;
         text-align: center;
         width: 100%;
         transition: 0.3s;
-        border: 2px solid rgba(76, 175, 80, 0.5);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        border: 3px solid transparent;
+        border-image-slice: 1;
+        border-image-source: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+        box-shadow: 0 6px 25px rgba(0,0,0,0.6);
     }
 
     .card:hover {
-        transform: scale(1.03);
-        border-color: #4CAF50;
-        box-shadow: 0 6px 25px rgba(0,0,0,0.7);
+        transform: scale(1.05) rotate(-1deg);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.8);
     }
 
     .card img {
-        width: 150px;
-        height: 150px;
-        border-radius: 15px;
-        border: 3px solid #4CAF50;
-        transition: 0.3s;
+        width: 160px;
+        height: 160px;
+        border-radius: 20px;
+        border: 4px solid;
+        border-image-slice: 1;
+        border-image-source: linear-gradient(45deg, red, orange, yellow, green, blue, indigo, violet);
+        transition: 0.5s;
     }
 
     .card img:hover {
-        transform: rotateY(360deg) scale(1.1);
+        transform: rotateY(360deg) scale(1.15);
     }
 
     h2 {
         font-family: 'Press Start 2P', cursive;
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-        color: #4CAF50;
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+        background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: rainbowText 4s linear infinite;
     }
 
     h3 {
         margin: 10px 0 5px 0;
-        color: #A5D6A7;
+        color: #fff;
+        text-shadow: 1px 1px 3px #000;
     }
 
     p {
         font-size: 14px;
         word-wrap: break-word;
+        color: #fff;
     }
 
     .error {
         color: #FF5252;
         font-weight: bold;
         text-shadow: 1px 1px 4px #000;
+        animation: shake 0.5s ease-in-out;
     }
+
+    @keyframes shake {
+        0%,100% {transform: translateX(0);}
+        25% {transform: translateX(-5px);}
+        50% {transform: translateX(5px);}
+        75% {transform: translateX(-5px);}
+    }
+
 </style>
 </head>
 <body>
 
-<h1>Minecraft Player Info</h1>
+<h1>Minecraft Player Info 🌈</h1>
 
 <div class="input-container">
     <input type="text" id="username" placeholder="Enter Minecraft Username">
