@@ -34,14 +34,15 @@
         }
         .player-info {
             margin-top: 30px;
-        }
-        .player-info img {
-            border-radius: 50%;
-            border: 3px solid #4CAF50;
-            margin: 10px;
+            text-align: center;
         }
         .player-info div {
             margin: 20px 0;
+        }
+        .player-info img {
+            border-radius: 0; /* Circle hata diya */
+            border: 3px solid #4CAF50;
+            margin: 10px;
         }
     </style>
 </head>
@@ -57,7 +58,6 @@
             const username = document.getElementById('username').value.trim();
             if(!username) return alert("Username dalna zaroori hai!");
 
-            // Using public CORS proxy
             const apiUrl = `https://mcplayer-info.vercel.app/minecraft-jenil?user=${username}`;
             const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
 
@@ -68,6 +68,7 @@
                 const textData = await response.json();
                 const data = JSON.parse(textData.contents);
 
+                // Skin render fallback
                 const skinRender = data.crafatar_skin_render || data.avatar;
 
                 document.getElementById('playerInfo').innerHTML = `
