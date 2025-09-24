@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhai Se Chat</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #1e1e1e; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
+  #chatContainer { width: 400px; background: #2c2c2c; border-radius: 10px; padding: 10px; display: flex; flex-direction: column; }
+  #messages { flex: 1; overflow-y: auto; margin-bottom: 10px; border: 1px solid #555; padding: 5px; border-radius: 5px; height: 300px; }
+  .message { padding: 5px 10px; margin: 5px 0; border-radius: 5px; max-width: 80%; }
+  .user { background: #00ffcc; color: #000; align-self: flex-end; }
+  .admin { background: #ffcc00; color: #000; align-self: flex-start; }
+  #inputContainer { display: flex; }
+  #inputContainer input { flex: 1; padding: 8px; border-radius: 5px 0 0 5px; border: none; }
+  #inputContainer button { padding: 8px; border: none; background: #ffcc00; color: #000; border-radius: 0 5px 5px 0; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div id="chatContainer">
+  <div id="messages"></div>
+  <div id="inputContainer">
+    <input type="text" id="messageInput" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+  // Firebase configuration
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+    databaseURL: "https://YOUR_PROJECT_ID-default-rtdb.firebaseio.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT_ID.appspot.com",
+    messagingSenderId: "SENDER_ID",
+    appId: "APP_ID"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+
+  const messagesDiv = document.getElementById('messages');
+
+  // Listen for messages
+  db.ref('chat').on('child_added', snapshot => {
+    const msg = snapshot.val();
+    const div = document.createElement('div');
+    div.classList.add('message');
+    div.classList.add(msg.sender);
+    div.innerText = msg.text;
+    messagesDiv.appendChild(div);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  });
+
+  // Send message
+  function sendMessage() {
+    const input = document.getElementById('messageInput');
+    const text = input.value.trim();
+    if(text === "") return;
+    db.ref('chat').push({ sender: 'user', text: text });
+    input.value = '';
+  }
+
+  // Example admin message (you can send from admin panel too)
+  // db.ref('chat').push({ sender: 'admin', text: 'Hello! How can I help you?' });
+</script>
+
+</body>
+</html>
