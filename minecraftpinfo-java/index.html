@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Player Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1a1a1a, #333);
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            width: 200px;
+            border-radius: 5px;
+            border: none;
+            margin-right: 10px;
+        }
+        button {
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .player-info {
+            margin-top: 30px;
+        }
+        .player-info img {
+            border-radius: 50%;
+            border: 3px solid #4CAF50;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minecraft Player Info</h1>
+    <input type="text" id="username" placeholder="Enter Minecraft Username">
+    <button onclick="getPlayerInfo()">Get Info</button>
+
+    <div class="player-info" id="playerInfo"></div>
+
+    <script>
+        async function getPlayerInfo() {
+            const username = document.getElementById('username').value;
+            if(!username) return alert("Username dalna zaroori hai!");
+            
+            const apiUrl = `https://mcplayer-info.vercel.app/minecraft-jenil?user=${username}`;
+            try {
+                const response = await fetch(apiUrl);
+                if(!response.ok) throw new Error("Player not found");
+                const data = await response.json();
+
+                document.getElementById('playerInfo').innerHTML = `
+                    <h2>${data.username}</h2>
+                    <div>
+                        <h3>Avatar</h3>
+                        <img src="${data.avatar}" alt="Avatar" width="150" height="150">
+                    </div>
+                    <div>
+                        <h3>Skin Render</h3>
+                        <img src="${data.crafatar_skin_render}" alt="Skin Render" width="250" height="400">
+                    </div>
+                    <div>
+                        <h3>UUID</h3>
+                        <p>${data.formatted_uuid}</p>
+                    </div>
+                `;
+            } catch (err) {
+                alert("Error: " + err.message);
+            }
+        }
+    </script>
+</body>
+</html>
