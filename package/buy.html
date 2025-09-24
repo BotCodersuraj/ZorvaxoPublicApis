@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Fire Auto Like Buy</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #1e1e1e; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
+  .container { background: #2c2c2c; padding: 20px; border-radius: 10px; width: 350px; }
+  label { display: block; margin-top: 10px; margin-bottom: 5px; }
+  input, button { width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 10px; }
+  button { background: #ffcc00; color: #1e1e1e; font-weight: bold; cursor: pointer; }
+  button:hover { background: #e6b800; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Buy Package</h2>
+
+  <p id="selectedPackage"></p>
+
+  <label for="ffUid">Enter Your FF UID:</label>
+  <input type="text" id="ffUid" placeholder="Enter your FF UID">
+
+  <label for="txnId">Enter Transaction ID:</label>
+  <input type="text" id="txnId" placeholder="Enter your Transaction ID">
+
+  <button id="doneBtn">Done</button>
+</div>
+
+<script>
+  // Get package name from URL
+  const params = new URLSearchParams(window.location.search);
+  const packageName = params.get('packagename');
+
+  if(!packageName) {
+    alert("No package selected! Redirecting to home page...");
+    window.location.href = "/"; // redirect to home if no package
+  } else {
+    document.getElementById('selectedPackage').innerText = "Selected Package: " + packageName;
+  }
+
+  document.getElementById('doneBtn').onclick = function() {
+    const ffUid = document.getElementById('ffUid').value.trim();
+    const txnId = document.getElementById('txnId').value.trim();
+
+    if(!ffUid || !txnId) {
+      alert("Please enter both FF UID and Transaction ID!");
+      return;
+    }
+
+    const message = `Hello Admin, I Select ${packageName} package. My Uid Is ${ffUid} And Start My Auto Like System. And My Transaction ID is ${txnId}. Thanks 🙏🏻`;
+
+    // WhatsApp link (replace with your number)
+    const phone = "911234567890";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank");
+    alert("Your message is ready to send to Admin!");
+  };
+</script>
+
+</body>
+</html>
