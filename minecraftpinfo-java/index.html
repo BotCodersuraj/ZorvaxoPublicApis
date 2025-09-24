@@ -1,4 +1,4 @@
-ht<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -57,15 +57,17 @@ ht<!DOCTYPE html>
             const username = document.getElementById('username').value.trim();
             if(!username) return alert("Username dalna zaroori hai!");
 
+            // Using public CORS proxy
             const apiUrl = `https://mcplayer-info.vercel.app/minecraft-jenil?user=${username}`;
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
 
             try {
-                const response = await fetch(apiUrl);
+                const response = await fetch(proxyUrl);
                 if(!response.ok) throw new Error("Player not found");
 
-                const data = await response.json();
+                const textData = await response.json();
+                const data = JSON.parse(textData.contents);
 
-                // Agar skin render ka field API me nahi hai to default avatar show karenge
                 const skinRender = data.crafatar_skin_render || data.avatar;
 
                 document.getElementById('playerInfo').innerHTML = `
