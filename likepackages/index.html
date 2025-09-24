@@ -5,24 +5,81 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Buy Free Fire Auto Like</title>
 <style>
-  body { font-family: Arial, sans-serif; background: #1e1e1e; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
-  .container { background: #2c2c2c; padding: 20px; border-radius: 10px; width: 350px; }
+  body { 
+    font-family: Arial, sans-serif; 
+    background: #1e1e1e; 
+    color: #fff; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    min-height: 100vh; 
+    margin:0;
+  }
+  .container { 
+    background: #2c2c2c; 
+    padding: 25px; 
+    border-radius: 12px; 
+    width: 380px; 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  }
+  h2 { 
+    text-align: center; 
+    color: #ffcc00; 
+    margin-bottom: 20px; 
+  }
   label { display: block; margin-top: 10px; margin-bottom: 5px; }
-  input, button { width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 10px; }
-  button { background: #ffcc00; color: #1e1e1e; font-weight: bold; cursor: pointer; }
+  input { 
+    width: 100%; 
+    padding: 12px; 
+    border-radius: 6px; 
+    border: none; 
+    margin-bottom: 15px; 
+    background: #3a3a3a; 
+    color: #fff;
+  }
+  input::placeholder { color: #ccc; }
+  button { 
+    width: 100%; 
+    padding: 12px; 
+    border-radius: 6px; 
+    border: none; 
+    background: #ffcc00; 
+    color: #1e1e1e; 
+    font-weight: bold; 
+    cursor: pointer; 
+    transition: background 0.2s;
+  }
   button:hover { background: #e6b800; }
-  p.info { color: #ffcc00; margin-top: 10px; font-size: 14px; }
+
+  /* Info message box */
+  .info-message { 
+    background: #3a3a3a; 
+    color: #ffcc00; 
+    padding: 15px; 
+    border-radius: 10px; 
+    margin-bottom: 20px; 
+    font-size: 14px; 
+    line-height: 1.5;
+  }
 </style>
 </head>
 <body>
 
 <div class="container">
   <h2>Buy Package</h2>
-  <p id="selectedPackage"></p>
-  <p class="info">
-    Note: Likes will be added automatically daily. Maximum 100 Likes per day. Please be patient after purchasing your package.
-  </p>
 
+  <!-- 7-line Info Message -->
+  <div class="info-message">
+    <p>1. Thank you for purchasing the Free Fire Auto Like package.</p>
+    <p>2. Please note that likes will not be added instantly after payment.</p>
+    <p>3. Garena system allows a maximum of 100 likes per day per account.</p>
+    <p>4. Your selected package: <strong id="packageInfo"></strong></p>
+    <p>5. Make sure you have entered your correct FF UID and Transaction ID.</p>
+    <p>6. Your likes will start to increment automatically every day until the package is completed.</p>
+    <p>7. Developed by: Suraj Sharma</p>
+  </div>
+
+  <!-- User Inputs -->
   <label for="ffUid">Enter Your FF UID:</label>
   <input type="text" id="ffUid" placeholder="Enter your FF UID">
 
@@ -41,7 +98,7 @@
     alert("No package selected! Redirecting to home page...");
     window.location.href = "index.html";
   } else {
-    document.getElementById('selectedPackage').innerText = "Selected Package: " + packageName;
+    document.getElementById('packageInfo').innerText = packageName;
   }
 
   document.getElementById('doneBtn').onclick = function() {
@@ -53,7 +110,7 @@
       return;
     }
 
-    const message = `Hello Admin, I Select ${packageName} package. My Uid Is ${ffUid} And Start My Auto Like System. Maximum 100 Likes per day. Transaction ID: ${txnId}. Thanks 🙏🏻`;
+    const message = `Hello Admin, I Select ${packageName} package. My Uid Is ${ffUid} And Start My Auto Like System. Maximum 100 Likes per day. Transaction ID: ${txnId}. Thanks 🙏🏻 Developed by Suraj Sharma`;
 
     // WhatsApp link (replace with admin number)
     const phone = "911234567890";
