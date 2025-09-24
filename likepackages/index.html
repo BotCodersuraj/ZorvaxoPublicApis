@@ -5,30 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Fire Auto Like Buy</title>
 <style>
-  body { font-family: Arial, sans-serif; background: #1e1e1e; color: #fff; margin: 0; padding: 20px; }
-  h1 { text-align: center; color: #ffcc00; margin-bottom: 20px; }
-  .container { max-width: 500px; margin: auto; background: #2c2c2c; padding: 20px; border-radius: 10px; }
-  label { display: block; margin: 10px 0 5px; }
-  input, select, button { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: none; }
+  body { font-family: Arial, sans-serif; background: #1e1e1e; color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; }
+  .container { background: #2c2c2c; padding: 20px; border-radius: 10px; width: 350px; }
+  label { display: block; margin-top: 10px; margin-bottom: 5px; }
+  input, button { width: 100%; padding: 10px; border-radius: 5px; border: none; margin-bottom: 10px; }
   button { background: #ffcc00; color: #1e1e1e; font-weight: bold; cursor: pointer; }
   button:hover { background: #e6b800; }
 </style>
 </head>
 <body>
 
-<h1>Free Fire Auto Like Buy</h1>
 <div class="container">
-  <label for="packageSelect">Select Package:</label>
-  <select id="packageSelect">
-    <option value="3000 Likes">3000 Likes - ₹19</option>
-    <option value="6000 Likes">6000 Likes - ₹38</option>
-    <option value="10000 Likes">10000 Likes - ₹64</option>
-    <option value="15000 Likes">15000 Likes - ₹95</option>
-    <option value="18000 Likes">18000 Likes - ₹114</option>
-    <option value="22500 Likes">22500 Likes - ₹143</option>
-    <option value="27000 Likes">27000 Likes - ₹171</option>
-    <option value="33000 Likes">33000 Likes - ₹209</option>
-  </select>
+  <h2>Buy Package</h2>
+
+  <p id="selectedPackage"></p>
 
   <label for="ffUid">Enter Your FF UID:</label>
   <input type="text" id="ffUid" placeholder="Enter your FF UID">
@@ -40,27 +30,35 @@
 </div>
 
 <script>
-document.getElementById('doneBtn').onclick = function() {
-  const packageName = document.getElementById('packageSelect').value;
-  const ffUid = document.getElementById('ffUid').value.trim();
-  const transactionId = document.getElementById('txnId').value.trim();
+  // Get package name from URL
+  const params = new URLSearchParams(window.location.search);
+  const packageName = params.get('packagename');
 
-  if(!ffUid || !transactionId) {
-    alert("Please enter FF UID and Transaction ID!");
-    return;
+  if(!packageName) {
+    alert("No package selected! Redirecting to home page...");
+    window.location.href = "/"; // redirect to home if no package
+  } else {
+    document.getElementById('selectedPackage').innerText = "Selected Package: " + packageName;
   }
 
-  const message = `Hello Admin, I Select ${packageName} package. My Uid Is ${ffUid} And Start My Auto Like System. And My Transaction ID is ${transactionId}. Thanks 🙏🏻`;
+  document.getElementById('doneBtn').onclick = function() {
+    const ffUid = document.getElementById('ffUid').value.trim();
+    const txnId = document.getElementById('txnId').value.trim();
 
-  // WhatsApp link
-  const phone = "918440877588"; // replace with admin number
-  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    if(!ffUid || !txnId) {
+      alert("Please enter both FF UID and Transaction ID!");
+      return;
+    }
 
-  // Open WhatsApp web
-  window.open(url, "_blank");
+    const message = `Hello Admin, I Select ${packageName} package. My Uid Is ${ffUid} And Start My Auto Like System. And My Transaction ID is ${txnId}. Thanks 🙏🏻`;
 
-  alert("Your message is ready to send to Admin!");
-};
+    // WhatsApp link (replace with your number)
+    const phone = "911234567890";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+    window.open(url, "_blank");
+    alert("Your message is ready to send to Admin!");
+  };
 </script>
 
 </body>
