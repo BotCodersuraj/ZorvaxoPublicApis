@@ -3,121 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Fire Auto Like Packages</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #1e1e1e;
-    color: #fff;
-    margin: 0;
-    padding: 20px;
-  }
-  h1 { text-align: center; margin-bottom: 20px; color: #ffcc00; }
-  .packages { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-  .card { background: #2c2c2c; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: transform 0.2s; }
-  .card:hover { transform: translateY(-5px); }
-  .price { font-size: 24px; color: #00ffcc; margin: 10px 0; }
-  .likes { font-size: 18px; margin-bottom: 15px; }
-  button { background: #ffcc00; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; color: #1e1e1e; transition: background 0.2s; }
-  button:hover { background: #e6b800; }
-
-  /* Modal styles */
-  .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); justify-content:center; align-items:center; }
-  .modal-content { background:#2c2c2c; padding:20px; border-radius:10px; width:90%; max-width:400px; text-align:center; }
-  .modal-content h2 { color:#ffcc00; }
-  .modal-content p { color:#fff; font-size:14px; margin:15px 0; }
-</style>
+<title>HTML Creator Web</title>
 </head>
 <body>
-
-<h1>Free Fire Auto Like Packages</h1>
-
-<div class="packages" id="packages"></div>
-
-<!-- Terms Modal -->
-<div class="modal" id="termsModal">
-  <div class="modal-content">
-    <h2>Terms & Conditions</h2>
-    <p>By using this website, you agree to the terms & conditions and allow us to access your location coordinates.</p>
-    <button id="acceptBtn">Accept</button>
-    <button id="declineBtn">Decline</button>
-  </div>
-</div>
+<h1>Welcome to HTML Creator!</h1>
+<textarea id="editor" rows="10" cols="50" placeholder="Write your HTML here"></textarea>
+<br><br>
+<button onclick="runCode()">Run HTML</button>
+<h2>Preview:</h2>
+<iframe id="preview" style="width:100%; height:300px;"></iframe>
 
 <script>
-  const packageList = [
-    {price: 19, likes: 3000},
-    {price: 38, likes: 6000},
-    {price: 64, likes: 10000},
-    {price: 95, likes: 15000},
-    {price: 114, likes: 18000},
-    {price: 143, likes: 22500},
-    {price: 171, likes: 27000},
-    {price: 209, likes: 33000},
-    {price: 247, likes: 39000},
-    {price: 295, likes: 46500},
-    {price: 352, likes: 55500},
-    {price: 409, likes: 64500},
-    {price: 475, likes: 75000},
-    {price: 551, likes: 87000},
-    {price: 637, likes: 100500},
-    {price: 732, likes: 115500},
-    {price: 836, likes: 132000},
-    {price: 950, likes: 150000},
-    {price: 1093, likes: 172500},
-    {price: 1235, likes: 195000}
-  ];
-
-  const container = document.getElementById('packages');
-  const modal = document.getElementById('termsModal');
-  const acceptBtn = document.getElementById('acceptBtn');
-  const declineBtn = document.getElementById('declineBtn');
-
-  // Show modal on page load
-  window.onload = function() {
-    modal.style.display = 'flex';
-  };
-
-  // Accept terms
-  acceptBtn.onclick = function() {
-    modal.style.display = 'none';
-    // Get user location coordinates
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        console.log("User coordinates:", position.coords.latitude, position.coords.longitude);
-      }, function(err){
-        console.log("Location access denied.");
-      });
-    } else {
-      console.log("Geolocation not supported.");
-    }
-  };
-
-  // Decline terms → redirect away
-  declineBtn.onclick = function() {
-    alert("You must accept terms to use this website.");
-    window.location.href = "https://google.com"; // redirect somewhere
-  };
-
-  // Create package cards
-  packageList.forEach((pkg, index) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <h2>Package ${index + 1}</h2>
-      <div class="price">₹ ${pkg.price}</div>
-      <div class="likes">${pkg.likes} Likes</div>
-      <button onclick="buyPackage(${pkg.likes})">Buy Now</button>
-    `;
-    container.appendChild(card);
-  });
-
-  function buyPackage(likes) {
-    const packageName = likes + " Likes";
-    const urlPackage = encodeURIComponent(packageName);
-    window.location.href = `likepackages/index.html?packagename=${urlPackage}`;
-  }
+function runCode() {
+    var code = document.getElementById('editor').value;
+    document.getElementById('preview').srcdoc = code;
+}
 </script>
-
 </body>
 </html>
