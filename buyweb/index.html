@@ -1,127 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HTML Creator with Fixed Button</title>
-
-<!-- CodeMirror CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/dracula.min.css">
-
-<!-- CodeMirror JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/javascript/javascript.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/htmlmixed/htmlmixed.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/xml/xml.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/css/css.min.js"></script>
-
-<style>
-body {
-    margin: 0;
-    padding: 0;
-    background: #1e1e1e;
-    color: white;
-    font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
-
-/* Editor */
-#editorContainer {
-    flex: 1;
-    border-bottom: 2px solid #444;
-}
-.CodeMirror {
-    height: 100% !important;
-    font-size: 16px;
-}
-
-/* Preview */
-#previewContainer {
-    flex: 1;
-}
-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-/* Fixed Circular Button */
-#runBtn {
-    position: fixed;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-    width: 50px;
-    height: 50px;
-    background: #ff5555;
-    border-radius: 50%;
-    border: none;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    z-index: 1000;
-}
-#runBtn:hover {
-    background: #ff2222;
-}
-</style>
-</head>
-<body>
-
-<!-- Editor -->
-<div id="editorContainer">
-    <textarea id="editor">
-<!DOCTYPE html>
-<html>
-<head>
-  <title>My Test Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Creator Web</title>
   <style>
-    body { background: black; color: lime; text-align: center; }
-    h1 { color: red; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      background: #222;
+      color: white;
+    }
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+    }
+    .tab.active {
+      background: #444;
+    }
+
+    /* Editor */
+    textarea {
+      flex: 1;
+      padding: 10px;
+      font-size: 14px;
+      font-family: monospace;
+      border: none;
+      outline: none;
+      resize: none;
+    }
+
+    /* Preview */
+    iframe {
+      flex: 1;
+      border: none;
+    }
+
+    /* Run button */
+    #runBtn {
+      position: fixed;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      width: 50px;
+      height: 50px;
+      background: purple;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <h1>Hello Suraj 🚀</h1>
-  <p>This is your HTML Creator Web!</p>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <div class="tab active" onclick="showTab('html')">HTML</div>
+    <div class="tab" onclick="showTab('css')">CSS</div>
+    <div class="tab" onclick="showTab('js')">JavaScript</div>
+  </div>
+
+  <!-- Editors -->
+  <textarea id="html" class="editor"><h1>Hello Suraj!</h1>
+<p>Mera pehla HTML page.</p></textarea>
+
+  <textarea id="css" class="editor" style="display:none;">body {
+  background: lightyellow;
+  font-family: Arial;
+}</textarea>
+
+  <textarea id="js" class="editor" style="display:none;">console.log("Hello Suraj!");</textarea>
+
+  <!-- Preview -->
+  <iframe id="preview"></iframe>
+
+  <!-- Run button -->
+  <button id="runBtn">&gt;</button>
+
   <script>
-    console.log("Code is running...");
+    const tabs = document.querySelectorAll('.tab');
+    const editors = document.querySelectorAll('.editor');
+    const preview = document.getElementById('preview');
+
+    // Tab switching
+    function showTab(tabId) {
+      editors.forEach(ed => ed.style.display = "none");
+      tabs.forEach(tab => tab.classList.remove("active"));
+      document.getElementById(tabId).style.display = "block";
+      event.target.classList.add("active");
+    }
+
+    // Run button action
+    document.getElementById('runBtn').addEventListener('click', () => {
+      const htmlCode = document.getElementById('html').value;
+      const cssCode = `<style>${document.getElementById('css').value}</style>`;
+      const jsCode = `<script>${document.getElementById('js').value}<\/script>`;
+      preview.srcdoc = htmlCode + cssCode + jsCode;
+    });
+
+    // First preview
+    preview.srcdoc = document.getElementById('html').value;
   </script>
-</body>
-</html>
-    </textarea>
-</div>
-
-<!-- Preview -->
-<div id="previewContainer">
-    <iframe id="preview"></iframe>
-</div>
-
-<!-- Fixed Button -->
-<button id="runBtn">&gt;</button>
-
-<script>
-// Initialize CodeMirror
-var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
-    mode: "htmlmixed",
-    theme: "dracula",
-    lineNumbers: true,
-    tabSize: 2,
-    indentWithTabs: true
-});
-
-// Run button action
-document.getElementById('runBtn').onclick = function() {
-    var code = editor.getValue();
-    document.getElementById('preview').srcdoc = code;
-};
-
-// First load preview
-document.getElementById('preview').srcdoc = editor.getValue();
-</script>
 
 </body>
 </html>
