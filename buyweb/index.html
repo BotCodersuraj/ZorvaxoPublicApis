@@ -40,12 +40,6 @@
       resize: none;
     }
 
-    /* Preview */
-    iframe {
-      flex: 1;
-      border: none;
-    }
-
     /* Run button */
     #runBtn {
       position: fixed;
@@ -84,16 +78,12 @@
 
   <textarea id="js" class="editor" style="display:none;">console.log("Hello Suraj!");</textarea>
 
-  <!-- Preview -->
-  <iframe id="preview"></iframe>
-
   <!-- Run button -->
   <button id="runBtn">&gt;</button>
 
   <script>
     const tabs = document.querySelectorAll('.tab');
     const editors = document.querySelectorAll('.editor');
-    const preview = document.getElementById('preview');
 
     // Tab switching
     function showTab(tabId) {
@@ -103,16 +93,16 @@
       event.target.classList.add("active");
     }
 
-    // Run button action
+    // Run button action -> open preview.html
     document.getElementById('runBtn').addEventListener('click', () => {
       const htmlCode = document.getElementById('html').value;
       const cssCode = `<style>${document.getElementById('css').value}</style>`;
       const jsCode = `<script>${document.getElementById('js').value}<\/script>`;
-      preview.srcdoc = htmlCode + cssCode + jsCode;
-    });
+      const fullCode = htmlCode + cssCode + jsCode;
 
-    // First preview
-    preview.srcdoc = document.getElementById('html').value;
+      localStorage.setItem("previewCode", fullCode);
+      window.location.href = "preview.html";
+    });
   </script>
 
 </body>
